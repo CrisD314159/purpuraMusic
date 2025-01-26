@@ -1,0 +1,165 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+  border-color: #2e2e2e;
+}
+
+html, body {
+  height: 100%; /* Garantiza que ocupen toda la altura del viewport */
+  margin: 0;    /* Elimina márgenes */
+  padding: 0;   /* Elimina rellenos */
+  overflow: auto; /* Evita el scroll */
+  overscroll-behavior: none; /* Evita el efecto de rebote */
+  background-color: #010101;
+}
+
+body {
+  display: flex; /* Para que los hijos puedan usar flexbox */
+  flex-direction: column; /* Organiza los hijos verticalmente */
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+:root {
+  background: #010101;
+  color: #ededed;
+  font-family: 'Lato', sans-serif;
+  
+}
+
+.loginform{
+  background: rgba(58, 58, 58, 0.15);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(5px);
+  height: 100vh;
+
+  @media screen and (max-width: 768px) {
+    border: none;
+    height: 100vh;
+    border-radius: 0px;
+    background: rgba(0, 0, 0, 0.15);
+  }
+}
+
+
+
+@keyframes move {
+  100% {
+      transform: translate3d(0, 0, 1px) rotate(360deg);
+  }
+}
+
+.background {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background: #000000;
+  overflow: hidden;
+}
+
+.background span {
+  width: 27vmin;
+  height: 27vmin;
+  border-radius: 27vmin;
+  backface-visibility: hidden;
+  position: absolute;
+  animation: move;
+  animation-duration: 45;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+
+.background span:nth-child(0) {
+  color: #299abd;
+  top: 42%;
+  left: 67%;
+  animation-duration: 21s;
+  animation-delay: -159s;
+  transform-origin: 19vw 20vh;
+  box-shadow: 54vmin 0 7.04669825405103vmin currentColor;
+}
+.background span:nth-child(1) {
+  color: #00a3d7;
+  top: 19%;
+  left: 4%;
+  animation-duration: 18s;
+  animation-delay: -276s;
+  transform-origin: -10vw 7vh;
+  box-shadow: 54vmin 0 7.5738011788133734vmin currentColor;
+}
+.background span:nth-child(2) {
+  color: #8508eb;
+  top: 58%;
+  left: 88%;
+  animation-duration: 30s;
+  animation-delay: -97s;
+  transform-origin: -3vw 8vh;
+  box-shadow: -54vmin 0 7.065822769881859vmin currentColor;
+}
+.background span:nth-child(3) {
+  color: #5e30eb;
+  top: 34%;
+  left: 97%;
+  animation-duration: 27s;
+  animation-delay: -299s;
+  transform-origin: 10vw 15vh;
+  box-shadow: -54vmin 0 7.321498618080821vmin currentColor;
+}
+.background span:nth-child(4) {
+  color: #5e30eb;
+  top: 48%;
+  left: 34%;
+  animation-duration: 20s;
+  animation-delay: -188s;
+  transform-origin: 5vw 25vh;
+  box-shadow: 54vmin 0 7.259093084467871vmin currentColor;
+}
+.background span:nth-child(5) {
+  color: #430bea;
+  top: 48%;
+  left: 34%;
+  animation-duration: 19s;
+  animation-delay: -188s;
+  transform-origin: 5vw 25vh;
+  box-shadow: 54vmin 0 7.259093084467871vmin currentColor;
+}
+.background span:nth-child(6) {
+  color: #8622e9;
+  top: 48%;
+  left: 34%;
+  animation-duration: 23s;
+  animation-delay: -188s;
+  transform-origin: 5vw 25vh;
+  box-shadow: 54vmin 0 7.259093084467871vmin currentColor;
+}
+.background span:nth-child(7) {
+  color: #dc30eb;
+  top: 48%;
+  left: 34%;
+  animation-duration: 28s;
+  animation-delay: -188s;
+  transform-origin: 5vw 25vh;
+  box-shadow: 54vmin 0 7.259093084467871vmin currentColor;
+}
+.background span:nth-child(8) {
+  color: #9621e9;
+  top: 48%;
+  left: 34%;
+  animation-duration: 30s;
+  animation-delay: -188s;
+  transform-origin: 5vw 25vh;
+  box-shadow: 54vmin 0 7.259093084467871vmin currentColor;
+}
+
+
+/* this is the glow effect for the header component */
+
+
