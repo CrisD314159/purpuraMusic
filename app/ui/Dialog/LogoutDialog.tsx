@@ -1,13 +1,15 @@
-import * as React from 'react';
+
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { useState } from 'react';
+import { Logout } from '@/app/lib/actions/serverActions/auth';
 
 export default function LogoutDialog() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -17,8 +19,12 @@ export default function LogoutDialog() {
     setOpen(false);
   };
 
+  const handleLogout = async () => {
+    await Logout();
+  }
+
   return (
-    <React.Fragment>
+    <>
       <ListItemButton onClick={handleClickOpen}>
         <ListItemIcon>
           <LogoutIcon/>
@@ -36,11 +42,11 @@ export default function LogoutDialog() {
         </DialogTitle>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button color='error' onClick={handleClose} autoFocus>
+          <Button color='error' onClick={handleLogout} autoFocus>
             Log Out
           </Button>
         </DialogActions>
       </Dialog>
-    </React.Fragment>
+    </>
   );
 }

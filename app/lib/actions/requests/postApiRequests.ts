@@ -14,7 +14,6 @@ export async function LoginFetch(email:string, password:string){
       body: JSON.stringify({email, password})
     })
 
-    console.log(response.status);
     if(response.status === 401) {
       return {
         success: false,
@@ -71,3 +70,4 @@ export async function SignUpFetch(email:string, password:string, firstname:strin
     }
   }
 }
+

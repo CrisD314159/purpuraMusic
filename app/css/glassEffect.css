@@ -1,7 +1,12 @@
 .glass{
-  background: rgba(0, 0, 0, 0);
-border-radius: 16px;
-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-backdrop-filter: blur(5.2px);
--webkit-backdrop-filter: blur(5.2px);
+  background: #2121213b;
+  position: fixed;
+  border-radius: 2px;
+  box-shadow: 0 4px 30px rgba(25, 25, 25, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.asas{
+  background: #7203da3b;
 }

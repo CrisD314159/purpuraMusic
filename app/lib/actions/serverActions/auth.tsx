@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { LoginFetch, SignUpFetch } from "../requests/postApiRequests";
 import { ApiGeneralResponse, ApiLoginResponse, apiURL, FormState, LoginFormSchema, SignUpFormSchema, SignUpFormState } from "../../definitions";
 import { createSession, deleteSession } from "../../session";
+import { LogoutRequest } from "../requests/deleteRequests";
 
 
 export async function Login(state:FormState, formdata: FormData){
@@ -39,6 +40,7 @@ export async function Login(state:FormState, formdata: FormData){
 
 
 }
+
 export  async function SignUp(state:SignUpFormState, formdata: FormData){
   const formValidation = SignUpFormSchema.safeParse({
     firstname: formdata.get('firstname'),
@@ -53,8 +55,6 @@ export  async function SignUp(state:SignUpFormState, formdata: FormData){
       errors: formValidation.error.flatten().fieldErrors
     }
   }
-
-
 
   const {email, password, country, firstname, surname} = formValidation.data
 
@@ -105,9 +105,15 @@ export async function VerifyAccount(state: FormState, formdata: FormData){
   }
 }
 
-export async function logout() {
-  deleteSession()
-  redirect('/')
+export async function Logout() {
+  const response = await LogoutRequest()
+  if(response){
+    deleteSession()
+    redirect('/')
+  }
 }
+
+
+
 
 

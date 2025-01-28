@@ -15,8 +15,6 @@ export default function LoginForm(){
         startTransition(() => {
           action(formData);
         });
-
-
   }
  
   return (

@@ -16,6 +16,11 @@ export const SignUpFormSchema = z.object({
     .string({message: 'Password must be at least 8 characters long, include at least one uppercase letter, one lowercase letter, one number, and one special character (@$!%*-?&).'})
     .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&\-])[A-Za-z\d@$!%*?&\-]{8,}$/)
 })
+export const EditAccountFormSchema = z.object({
+  firstname :z.string().min(3).max(30),
+  surname :z.string().min(2).max(30),
+  country: z.number()
+})
 
 export type FormState =
   | {
@@ -37,6 +42,18 @@ export type SignUpFormState =
         country?: string[]
         email?: string[]
         password?: string[]
+      }
+      message?: string
+      success?: boolean
+    }
+  | undefined
+
+export type EditAccountFormState =
+  | {
+      errors?: {
+        firstname?: string[]
+        surname?: string[]
+        country?: string[]
       }
       message?: string
       success?: boolean

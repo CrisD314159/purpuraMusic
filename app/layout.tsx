@@ -28,9 +28,14 @@ export default function RootLayout({
     <html lang="en">
       {/* Esto permite que el navegador sepa que el sitio web está optimizado para dispositivos móviles.( que no haya rebote al hacer scroll) */}
       <Head> 
-      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-      <meta name="description" content="Púrpura Music: Tu música en todas partes" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+        <meta name="description" content="Púrpura Music: Tu música en todas partes" />
+        <meta name="theme-color" content="transparent" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <meta name="apple-mobile-web-app-title" content="Púrpura Music"/>
       </Head>
+      
       <body
         className={`${quicksand.className} antialiased h-screen`}
       >

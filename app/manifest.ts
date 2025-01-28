@@ -1,17 +1,17 @@
-import type { MetadataRoute } from 'next'
- 
+import { MetadataRoute } from "next";
+
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Púrpura Musid Admin',
+    name: 'Púrpura Music Admin',
     short_name: 'Púrpura Music',
     description: 'Púrpura Music PWA Application',
     start_url: '/',
-    display: 'fullscreen',
-    background_color: '#010101',
+    display: 'standalone', // Usa 'standalone' para evitar que se muestre la barra de navegador
+    background_color: 'transparent', // Asegura que el fondo sea transparente
+    theme_color: '#010101', // Transparente para la barra de estado
     orientation: 'portrait',
     lang: 'en',
-    theme_color: '#010101',
-    icons:[
+    icons: [
       {
         src: '/favicon/android-chrome-192x192.png',
         sizes: '192x192',
@@ -28,6 +28,5 @@ export default function manifest(): MetadataRoute.Manifest {
         type: 'image/png',
       }
     ]
-    
-  }
+  };
 }

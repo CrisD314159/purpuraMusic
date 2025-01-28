@@ -6,7 +6,6 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import useSWR from 'swr';
 import { GetCountries } from '@/app/lib/actions/requests/getRequests';
-import { useState } from 'react';
 
 interface Country {
   id: number
@@ -15,15 +14,15 @@ interface Country {
 
 interface CountrySelectProps {
   setCountry : (int: number) => void
+  defaultValue?: number
 }
 
-export default function CountrySelect({setCountry}: CountrySelectProps) {
-  const [country, setCountryValue] = useState('');
+export default function CountrySelect({setCountry, defaultValue}: CountrySelectProps) {
+
   const {data, error, isLoading} = useSWR('countries', GetCountries)
 
 
   const handleChange = (event: SelectChangeEvent) => {
-    setCountryValue(event.target.value as string);
     setCountry(parseInt(event.target.value as string))
   };
 
@@ -34,9 +33,10 @@ export default function CountrySelect({setCountry}: CountrySelectProps) {
         <InputLabel id="demo-simple-select-label">Country</InputLabel>
         <Select
           required
+          defaultValue={defaultValue?.toString()}
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={country}
+          value={defaultValue?.toString()}
           label="Country"
           onChange={handleChange}
         >
