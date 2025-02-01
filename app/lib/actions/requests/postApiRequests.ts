@@ -1,4 +1,5 @@
 
+import { cookies } from "next/headers"
 import { apiURL } from "../../definitions"
 
 
@@ -68,6 +69,34 @@ export async function SignUpFetch(email:string, password:string, firstname:strin
       success: false,
       message: 'An error occured while trying to sign up'
     }
+  }
+}
+
+
+
+export async function CreatePlaylistRequest(imageUrl:string | undefined, name:string, description:string | undefined){
+  try {
+    const token = (await cookies()).get('token')?.value
+    const response = await fetch(`${apiURL}/playlist`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`  
+      },
+      body: JSON.stringify({imageUrl, name, description})
+    })
+
+    if(response.status === 201){
+      return {
+        success: true,
+        message: 'Playlist created successfully'
+      }
+    }
+
+    throw new Error('An error occurred while trying to create the playlist')
+    
+  } catch (error) {
+    throw error;
   }
 }
 

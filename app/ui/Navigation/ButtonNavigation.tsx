@@ -12,7 +12,7 @@ export default function ButtonNavigation() {
   const [value, setValue] = useState(0);
 
   return (
-    <Box sx={{ width: '100%', position:'absolute', bottom:0, margin:'auto' }}>
+    <Box sx={{ width: '100%', position:'absolute', bottom:0, margin:'auto', zIndex:1000 }}>
       <BottomNavigation
         showLabels={false}
         sx={{ backgroundColor: 'transparent', marginBottom:'30px' }}

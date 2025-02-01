@@ -20,11 +20,8 @@ export async function EditAccountFetch(firstname:string, surname:string, country
         message: 'Account edited successfully'
       }
     }
-    if(response.status === 401) throw new Error('You are not authorized to edit this account')
+    if(response.status === 401) return null
 
-    else {
-      throw new Error('An error occured while trying to sign up')
-    }
   } catch  {
     return {
       success: false,

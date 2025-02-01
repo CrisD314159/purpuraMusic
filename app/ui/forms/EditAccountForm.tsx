@@ -5,7 +5,7 @@ import CountrySelect from "../Selects/CountrySelect";
 import { EditAccount } from "@/app/lib/actions/serverActions/putActions";
 
 export default function EditAccountForm({initialCountry, initialFirstName, initialSurName, setReload} :
-   {initialCountry: number, initialFirstName: string, initialSurName: string, setReload: React.Dispatch<React.SetStateAction<boolean>>}) {
+  {initialCountry: number, initialFirstName: string, initialSurName: string, setReload: React.Dispatch<React.SetStateAction<boolean>>}) {
   const [state, action, pending] = useActionState(EditAccount, undefined)
   const [country, setCountry] = useState(initialCountry ?? 0)
 

@@ -5,7 +5,7 @@ export default function DashboardLayout({children}:{children:React.ReactNode}) {
   return (
     <div className="relative w-full h-full flex flex-col items-center">
      <HeaderComponent showHome={false}/>
-     <div className="h-full w-full pt-14">
+     <div className="h-full w-full">
       {children}
      </div>
       <ButtonNavigation />

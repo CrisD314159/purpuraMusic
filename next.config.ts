@@ -10,6 +10,11 @@ const nextConfig: NextConfig = {
         pathname: '/dw43hgf5p/**'
       }
     ]
+  },
+  experimental:{
+    serverActions:{
+      bodySizeLimit:'7mb'
+    }
   }
   /* config options here */
 };

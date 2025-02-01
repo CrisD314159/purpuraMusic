@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Quicksand } from "next/font/google";
+import { Montserrat, Quicksand } from "next/font/google";
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 
 import "./globals.css";
@@ -12,6 +12,13 @@ const quicksand = Quicksand({
   style:["normal"],
   subsets: ["latin"],
   weight:["300", "400", "500", "600"]
+})
+
+
+const montserrat = Montserrat({
+  style:["normal", "italic"],
+  subsets: ["latin"],
+  weight:["200","300", "400", "500", "600"]
 })
 
 export const metadata: Metadata = {
@@ -37,7 +44,7 @@ export default function RootLayout({
       </Head>
       
       <body
-        className={`${quicksand.className} antialiased h-screen`}
+        className={`${quicksand.className} ${montserrat.className} antialiased h-screen`}
       >
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>

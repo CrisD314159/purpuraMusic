@@ -21,6 +21,11 @@ export const EditAccountFormSchema = z.object({
   surname :z.string().min(2).max(30),
   country: z.number()
 })
+export const CreatePlayListFormSchema = z.object({
+  imageUrl :z.string().url().optional(),
+  name :z.string().min(2).max(30),
+  description: z.string().max(100).optional()
+})
 
 export type FormState =
   | {

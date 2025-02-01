@@ -35,3 +35,26 @@ export async function GetUserAccount(){
     throw error 
   }
 }
+
+
+export async function GetUserPlaylists(){
+  try {
+    const token = (await cookies()).get('token')?.value
+    const response = await fetch(`${apiURL}/playlist/getPlaylists/user`, {
+      method: 'GET',
+      headers:{
+        'Authorization': `Bearer ${token}`
+      }
+    })
+
+    if (response.status === 401) {
+      return null
+    }
+
+    const userPlaylists = await response.json()
+    return userPlaylists;
+    
+  } catch (error) {
+    throw error
+  }
+}

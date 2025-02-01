@@ -6,6 +6,7 @@ import { checkIsloggedIn } from './app/lib/authChecks';
 const protectedRoutesRegex = [
   /^\/dashboard$/, 
   /^\/dashboard\/home$/,
+  /^\/dashboard\/library$/,
   /^\/user\/account$/,
   /^\/dashboard\/create\/artists$/,
   /^\/dashboard\/create\/songs$/,
