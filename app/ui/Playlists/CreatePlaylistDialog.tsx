@@ -36,12 +36,12 @@ export default function CreatePlaylistDialog({props}:{props:CreatePlaylistProps}
 
   return (
     <>
-      <Fab sx={{marginRight:2, position:'absolute', right:0, zIndex:50}} color='info' onClick={handleClickOpen} >
+      <Fab sx={{marginRight:2, position:'absolute', right:0, top:180, zIndex:50}} size='small' color='info' onClick={handleClickOpen} >
           <AddRoundedIcon/>
         </Fab>
       <Dialog
         fullScreen
-        sx={{zIndex:990}}
+        sx={{zIndex:1300}}
         open={open}
         onClose={handleClose}
         slots={{transition: Transition}}

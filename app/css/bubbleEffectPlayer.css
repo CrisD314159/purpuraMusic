@@ -1,0 +1,96 @@
+@keyframes move {
+  100% {
+    transform: translate3d(0, 0, 1px) rotate(360deg);
+  }
+}
+
+.player {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+.player span {
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  backface-visibility: hidden;
+  position: absolute;
+  animation: move linear infinite;
+  opacity: 0.7;
+  filter: blur(15px);
+}
+
+
+
+/* Configuración de movimiento y sombras */
+.player span:nth-child(0) {
+  top: 42%;
+  left: 67%;
+  animation-duration: 21s;
+  animation-delay: -159s;
+  transform-origin: 19vw 20vh;
+  box-shadow: 54vmin 0 8vmin currentColor;
+}
+.player span:nth-child(1) {
+  top: 19%;
+  left: 4%;
+  animation-duration: 18s;
+  animation-delay: -276s;
+  transform-origin: -10vw 7vh;
+  box-shadow: 54vmin 0 8vmin currentColor;
+}
+.player span:nth-child(2) {
+  top: 58%;
+  left: 88%;
+  animation-duration: 30s;
+  animation-delay: -97s;
+  transform-origin: -3vw 8vh;
+  box-shadow: -54vmin 0 8vmin currentColor;
+}
+.player span:nth-child(3) {
+  top: 34%;
+  left: 97%;
+  animation-duration: 27s;
+  animation-delay: -299s;
+  transform-origin: 10vw 15vh;
+  box-shadow: -54vmin 0 8vmin currentColor;
+}
+.player span:nth-child(4) {
+  top: 48%;
+  left: 34%;
+  animation-duration: 20s;
+  animation-delay: -188s;
+  transform-origin: 5vw 25vh;
+  box-shadow: 54vmin 0 8vmin currentColor;
+}
+.player span:nth-child(5) {
+  top: 48%;
+  left: 34%;
+  animation-duration: 19s;
+  animation-delay: -188s;
+  transform-origin: 5vw 25vh;
+  box-shadow: 54vmin 0 8vmin currentColor;
+}
+.player span:nth-child(6) {
+  top: 48%;
+  left: 34%;
+  animation-duration: 23s;
+  animation-delay: -188s;
+  transform-origin: 5vw 25vh;
+  box-shadow: 54vmin 0 8vmin currentColor;
+}
+.player span:nth-child(7) {
+  top: 48%;
+  left: 34%;
+  animation-duration: 28s;
+  animation-delay: -188s;
+  transform-origin: 5vw 25vh;
+  box-shadow: 54vmin 0 8vmin currentColor;
+}

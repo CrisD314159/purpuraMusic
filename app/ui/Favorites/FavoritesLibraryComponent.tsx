@@ -9,6 +9,8 @@ import { Box, Slide, Typography } from '@mui/material';
 import { forwardRef, useState } from 'react';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
+import '@/app/css/linearGradientAnimation.css'
+import FavoritesContainer from './FavoritesContainer';
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -33,6 +35,7 @@ export default function FavoritesLibraryComponent() {
   return (
     <>
       <Button variant="text"  sx={{width:'97%', height:150, display:'flex', justifyContent:'space-between'}} onClick={handleClickOpen}>
+  
        <FavoriteRoundedIcon sx={{height:100, width:100}}/>
        <Typography variant="h5" sx={{fontFamily:'Montserrat', color:'#fff', fontSize:25}}>Liked Songs</Typography>
        <ArrowForwardIosRoundedIcon/>
@@ -44,7 +47,7 @@ export default function FavoritesLibraryComponent() {
         onClose={handleClose}
         slots={{transition: Transition}}
       >
-        <Box sx={{width:'100%', height:'100%', backgroundColor:'#010101', color:'#fff', fontFamily:'Montserrat'}}>
+        <Box sx={{width:'100%', backgroundColor:'#010101', color:'#fff', fontFamily:'Montserrat'}}>
           <Toolbar>
             <IconButton
               edge="start"
@@ -55,7 +58,13 @@ export default function FavoritesLibraryComponent() {
               <ArrowBackIosNewRoundedIcon />
             </IconButton>
           </Toolbar>
+        </Box>
 
+        <Box sx={{display:'flex', flexDirection:'column', width:'100%', height:'100%', background:'#010101', alignItems:'center'}}>
+          <div className='w-11/12 flex justify-center linearBox rounded-xl' style={{boxShadow:'3px 3px 50px 15px #bd52ee'}}>
+            <FavoriteRoundedIcon sx={{height:200, width:200}} color='info'/>
+          </div>
+          <FavoritesContainer/>
         </Box>
     
       </Dialog>

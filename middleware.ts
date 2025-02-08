@@ -7,6 +7,7 @@ const protectedRoutesRegex = [
   /^\/dashboard$/, 
   /^\/dashboard\/home$/,
   /^\/dashboard\/library$/,
+  /^\/dashboard\/search$/,
   /^\/user\/account$/,
   /^\/dashboard\/create\/artists$/,
   /^\/dashboard\/create\/songs$/,

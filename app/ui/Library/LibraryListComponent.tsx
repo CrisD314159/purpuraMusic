@@ -1,4 +1,4 @@
-import FavoritesLibraryComponent from "./FavoritesLibraryComponent";
+import FavoritesLibraryComponent from "../Favorites/FavoritesLibraryComponent";
 import PlayListsList from "./PlayListsList";
 
 
