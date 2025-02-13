@@ -5,9 +5,48 @@ import { useEffect, useRef } from "react"
 export default function PlayerComponent() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const prevSongRef = useRef<string | null>(null);
-  const { currentSong, isPlaying, playNext } = usePLayerStore();
+  const { currentSong, isPlaying, playNext, togglePlay, playPrevious } = usePLayerStore();
 
   // Remove the separate useEffect that automatically play/pauses on isPlaying change
+
+  useEffect(() => {
+    if ("mediaSession" in navigator && currentSong) {
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: currentSong.name,
+        artist: currentSong.artists[0].name ?? "Not Playing",
+        album: currentSong.albumName ?? "Not Playing",
+        artwork: [
+          { src: currentSong.imageUrl ?? "purpura-logo.png", sizes: "512x512" }
+        ]
+      });
+      navigator.mediaSession.setActionHandler("play", () => {
+        togglePlay();
+        // Lógica para reproducir
+      });
+      navigator.mediaSession.setActionHandler("pause", () => {
+        togglePlay()
+        // Lógica para pausar
+      });
+      navigator.mediaSession.setActionHandler("previoustrack", () => {
+        if(audioRef.current && audioRef.current.currentTime < 4){
+          playPrevious()
+        }else{
+          handleSeek([0])
+        }
+        //  ir a la canción anterior
+      });
+      navigator.mediaSession.setActionHandler("nexttrack", () => {
+        playNext()
+        //  ir a la siguiente canción
+      });
+    }
+  }, [currentSong, playNext, playPrevious, togglePlay]);
+
+  const handleSeek = (value: number[]) => {
+		if (audioRef.current) {
+			audioRef.current.currentTime = value[0];
+		}
+	};
 
   // handle song ends
   useEffect(() => {
