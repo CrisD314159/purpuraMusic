@@ -32,12 +32,21 @@ export async function GetUserSearchResults(search:string)
   if(isNullOrEmpty(search)) return
   try {
     const token = (await cookies()).get('token')?.value
+    if(isNullOrEmpty(token)){
+      const response = await fetch(`${apiURL}/search/input/public?search=${search}`)   
+      if(response.status === 200){
+        const songs = await response.json()
+        return songs
+      }
+      throw new Error("An error occured while fetching your songs")
+    }
+
     const response = await fetch(`${apiURL}/search/input?search=${search}`, {
       headers:{
         'Authorization': `Bearer ${token}`
       }
     })
-    
+
     if(response.status === 200){
       const songs = await response.json()
       return songs
@@ -50,6 +59,8 @@ export async function GetUserSearchResults(search:string)
     
   }
 }
+
+
 export async function GetPlaylistSongs(id:string)
 {
   if(isNullOrEmpty(id)) return

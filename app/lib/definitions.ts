@@ -129,3 +129,5 @@ export interface Playlist{
 export function isNullOrEmpty(value: string | null | undefined): boolean {
   return !value || value.trim().length === 0;
 }
+
+export const defaultSongImage = 'https://res.cloudinary.com/dw43hgf5p/image/upload/v1735748260/uh7bimgulcqxvdpu91t8.jpg'

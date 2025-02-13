@@ -6,6 +6,8 @@ interface PlayerStore{
   isPlaying: boolean
   queue: Song[]
   currentIndex:number
+  originalQueue: Song[]
+  isShuffle: boolean
 
 
   initializeQueue : (songs: Song[]) => void
@@ -14,6 +16,10 @@ interface PlayerStore{
   togglePlay: ()=> void
   playNext : ()=>void
   playPrevious: ()=> void
+  UpdateIsOnLibrary:() => void
+  playAlbumShuffle: (songs : Song[], startIndex?:number) => void
+  setShuffle:()=> void
+  addToQueue : (song:Song) => void
 }
 
 
@@ -22,6 +28,8 @@ export const usePLayerStore = create<PlayerStore>((set, get)=> ({
   isPlaying : false,
   queue : [],
   currentIndex : -1,
+  originalQueue : [],
+  isShuffle: false,
 
   initializeQueue:(songs : Song[]) => {
     set({
@@ -41,6 +49,21 @@ export const usePLayerStore = create<PlayerStore>((set, get)=> ({
       isPlaying : true
     })
 
+  },
+  playAlbumShuffle: (songs: Song[], startIndex = 0) => {
+    if (songs.length === 0) return;
+
+    // Guardar la cola original antes de mezclar
+    set({ originalQueue: songs, isShuffle: true });
+
+    const shuffledQueue = [...songs].sort(() => Math.random() - 0.5);
+
+    set({
+      queue: shuffledQueue,
+      currentSong: shuffledQueue[startIndex],
+      currentIndex: 0,
+      isPlaying: true
+    });
   },
   setCurrentSong : (song: Song | null)=> {
     if(!song) return
@@ -92,4 +115,51 @@ export const usePLayerStore = create<PlayerStore>((set, get)=> ({
       set({isPlaying: false })
     }
   },
+  UpdateIsOnLibrary: () => {
+    const { currentSong } = get();
+    if (currentSong) {
+      set({
+        currentSong: { ...currentSong, isOnLibrary: !currentSong.isOnLibrary }
+      });
+    }
+  },
+
+
+
+  // Alternar entre modo aleatorio y normal
+  setShuffle: () => {
+    const { isShuffle, originalQueue, queue, currentSong } = get();
+
+    if (isShuffle) {
+      // Si está activado, restaurar la cola original
+      const originalIndex = originalQueue.findIndex(song => song.id === currentSong?.id);
+      set({
+        queue: originalQueue,
+        currentIndex: originalIndex !== -1 ? originalIndex : 0,
+        isShuffle: false
+      });
+    } else {
+      // Guardar la cola original antes de mezclar
+      set({ originalQueue: queue, isShuffle: true });
+
+      const shuffledQueue = [...queue].sort(() => Math.random() - 0.5);
+      const currentIndex = shuffledQueue.findIndex(song => song.id === currentSong?.id);
+
+      set({
+        queue: shuffledQueue,
+        currentIndex: currentIndex !== -1 ? currentIndex : 0
+      });
+    }
+  },
+
+  addToQueue: (song: Song) => {
+    if (!song) return;
+  
+    const { queue } = get();
+  
+    set({
+      queue: [...queue, song]
+    });
+  }
+
 }))

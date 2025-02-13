@@ -9,6 +9,12 @@
 	background-size: 400% 400%;
 	animation: gradient 10s ease infinite;
 }
+.lineardark {
+	background: linear-gradient(-45deg, #330249, #092a78, #3e0548, #023455);
+	background-size: 400% 400%;
+	animation: gradient 10s ease infinite;
+}
+
 
 @keyframes gradient {
 	0% {

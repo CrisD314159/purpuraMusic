@@ -5,6 +5,7 @@ import { usePLayerStore } from "@/app/store/usePlayerStore";
 import SearchInput from "@/app/ui/Search/SearchInput";
 import SongComponent from "@/app/ui/Song/SongComponent";
 import { CircularProgress, List } from "@mui/material";
+import Image from "next/image";
 import { useState } from "react";
 import useSWR from "swr";
 import { useDebouncedCallback } from 'use-debounce';
@@ -41,8 +42,8 @@ export default function SearchPage() {
       <SearchInput debounce={debounce}/>
       {isLoading && <CircularProgress />}
       {error && <p>{error.message}</p>}
-      {data && (
-        <List sx={{ width: '95%', overflowY: 'auto' }}>
+      {data ?(
+        <List sx={{ width: '95%', height:'525px',  overflowY: 'auto' }}>
           <p className="text-xl mb-5">Top Songs</p>
           {data.songs.map((song, index) => {
             const isCurrent = currentSong?.id === song.id;
@@ -59,7 +60,10 @@ export default function SearchPage() {
           <p className="text-xl mb-5">Top Artists</p>
           <p className="text-xl mb-5">Top Playlists</p>
         </List>
-      )}
+      ):
+      <Image src="/purpura-vanish.png" alt="search" width={250} height={250} style={{position:'absolute', top:'30%'}} />
+    
+    }
     </div>
   );
 }

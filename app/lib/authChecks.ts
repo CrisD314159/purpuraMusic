@@ -1,3 +1,4 @@
+'use server'
 import { cookies } from "next/headers";
 import { apiURL } from "./definitions";
 import { createSession} from "./session";

@@ -20,7 +20,7 @@ export default function FavoritesList({ initialSongs }: SongsListProps) {
   const [offset, setOffset] = useState(NUMBER_OF_SONGS_TO_FETCH)
   const [songs, setSongs] = useState<Song[]>(initialSongs)
   const { ref, inView } =  useInView()
-  const {currentSong, isPlaying, playAlbum, togglePlay} = usePLayerStore()
+  const {currentSong, isPlaying, playAlbum, togglePlay, playAlbumShuffle} = usePLayerStore()
 
   const loadMoreSongs = async () => {
     const apiUsers = await GetUserFavorites(offset, NUMBER_OF_SONGS_TO_FETCH)
@@ -34,6 +34,10 @@ export default function FavoritesList({ initialSongs }: SongsListProps) {
       else{
       playAlbum(songs, 0)
     }
+
+  }
+  const handlePlayLibraryShuffle = () =>{
+      playAlbumShuffle(songs, 0)
 
   }
 
@@ -50,7 +54,7 @@ export default function FavoritesList({ initialSongs }: SongsListProps) {
   }, [inView])
 
   return (
-    <div className='flex flex-col w-full items-center mt-6'>
+    <div className='flex flex-col w-full items-center h-3/4 mt-6'>
       <div className='w-11/12 flex gap-6 justify-center'>
       {isPlaying ? 
         < Button color='info' variant='contained' sx={{borderRadius:4, width:'100px', height:50}}
@@ -64,11 +68,13 @@ export default function FavoritesList({ initialSongs }: SongsListProps) {
           <PlayArrowIcon/>
         </Button>
     }
-        < Button color='info' variant='contained' sx={{borderRadius:4, width:'100px', height:50}}>
+        < Button color='info' variant='contained' sx={{borderRadius:4, width:'100px', height:50}}
+        onClick={handlePlayLibraryShuffle}
+        >
           <ShuffleIcon/>
         </Button>
       </div>
-      <List sx={{width:'91%', height:'100%', display:'flex', flexDirection:'column', alignItems:'center', overflowY:'auto', paddingTop:3}}>
+      <List sx={{width:'91%', height:'327px', display:'flex', flexDirection:'column', alignItems:'center', overflowY:'auto', paddingTop:3}}>
         {songs.map((song, index) => {
           const isCurrent = currentSong?.id === song.id
           return (

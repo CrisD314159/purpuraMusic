@@ -15,7 +15,16 @@ const nextConfig: NextConfig = {
     serverActions:{
       bodySizeLimit:'7mb'
     }
-  }
+  },
+  async redirects() {
+    return [
+      {
+        source: '/dashboard',
+        destination: '/dashboard/home',
+        permanent: true,
+      },
+    ]
+  },
   /* config options here */
 };
 

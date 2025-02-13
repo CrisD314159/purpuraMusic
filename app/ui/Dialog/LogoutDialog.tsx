@@ -7,9 +7,11 @@ import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useState } from 'react';
 import { Logout } from '@/app/lib/actions/serverActions/auth';
+import { useAuthStore } from '@/app/store/useAuthStore';
 
 export default function LogoutDialog() {
   const [open, setOpen] = useState(false);
+  const {setIsNotAuthenticated} = useAuthStore()
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -21,6 +23,7 @@ export default function LogoutDialog() {
 
   const handleLogout = async () => {
     await Logout();
+    setIsNotAuthenticated()
   }
 
   return (

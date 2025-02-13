@@ -12,7 +12,7 @@ const fetcher = async ()=>{
 }
 
 export default function FavoritesContainer() {
-  const {data, error, isLoading} = useSWR('favorites', fetcher)
+  const {data, error, isLoading} = useSWR('favorites', fetcher, {revalidateOnFocus: true, refreshInterval:1000, refreshWhenHidden:true})
 
   if(isLoading) return <CircularProgress color='primary'/>
   if(error) return <p>An errror ocurred while fetching your songs</p>

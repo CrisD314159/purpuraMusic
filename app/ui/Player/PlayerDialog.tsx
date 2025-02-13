@@ -20,11 +20,11 @@ import VolumeUpRoundedIcon from '@mui/icons-material/VolumeUpRounded';
 import { MiniPlayerControls } from './MiniPlayerControls';
 import VolumeDownIcon from '@mui/icons-material/VolumeDown';
 import PlayerDinamicBackground from './PlayerDinamicBackground';
-import { Vibrant } from "node-vibrant/browser";
-import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
-import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import PlayerComponent from './PlayerComponent';
 import Link from 'next/link';
+import { defaultSongImage } from '@/app/lib/definitions';
+import SongAddRemoveComponent from '../Song/SongAddRemoveComponent';
+import { useAuthStore } from '@/app/store/useAuthStore';
 
 const formatTime = (seconds: number) => {
 	const minutes = Math.floor(seconds / 60);
@@ -42,19 +42,14 @@ const Transition = forwardRef(function Transition(
 });
 
 export default function PlayerDialog() {
-  const { currentSong, isPlaying, togglePlay, playNext, playPrevious } = usePLayerStore();
+  const { currentSong, isPlaying, togglePlay, playNext, playPrevious, isShuffle, setShuffle } = usePLayerStore();
   const [open, setOpen] = useState(false);
   const [volume, setVolume] = useState(100);
 	const [currentTime, setCurrentTime] = useState(0);
 	const [duration, setDuration] = useState(0);
-	const [mainColor, setMainColor] = useState('#010101');
-	const [bubble1, setBubble1] = useState('#010101');
-	const [bubble2, setBubble2] = useState('#010101');
-	const [bubble3, setBubble3] = useState('#010101');
-	const [isOnLibrary, setIsOnLibrary] = useState(false);
-	const defaultSongImage = 'https://res.cloudinary.com/dw43hgf5p/image/upload/v1735748260/uh7bimgulcqxvdpu91t8.jpg'
-	
 	const audioRef = useRef<HTMLAudioElement | null>(null);
+
+	const {isAuthenticated} = useAuthStore()
 
 
 
@@ -67,31 +62,6 @@ export default function PlayerDialog() {
 
   }
 
-	useEffect(()=>{
-		if (!currentSong || !currentSong.imageUrl){
-			Vibrant.from(defaultSongImage)
-		.getPalette()
-		.then((palette) =>{
-			setMainColor(palette.DarkVibrant?.hex ?? '#010101')
-			setBubble1(palette.Vibrant?.hex ?? '#010101')
-			setBubble2(palette.LightVibrant?.hex ?? '#010101')
-			setBubble3(palette.LightMuted?.hex ?? '#010101')
-
-		} );
-		}else{
-			Vibrant.from(currentSong.imageUrl)
-			.getPalette()
-			.then((palette) =>{
-				setMainColor(palette.DarkVibrant?.hex ?? '#010101')
-				setBubble1(palette.Vibrant?.hex ?? '#010101')
-				setBubble2(palette.LightVibrant?.hex ?? '#010101')
-				setBubble3(palette.LightMuted?.hex ?? '#010101')
-	
-			} );
-			setIsOnLibrary(currentSong.isOnLibrary)
-		}
-
-	}, [currentSong])
 
 	useEffect(() => {
 		audioRef.current = document.querySelector("audio");
@@ -145,7 +115,7 @@ export default function PlayerDialog() {
         slots={{transition: Transition}}
       >
         <Box sx={{display:'flex', flexDirection:'column', width:'100%', height:'100%', background:'#010101', alignItems:'center'}}>
-					<PlayerDinamicBackground mainColor={mainColor} bubble1={bubble1} bubble2={bubble2} bubble3={bubble3} />
+					<PlayerDinamicBackground currentImage={currentSong?.imageUrl} />
 				
         <div className='flex flex-col items-center h-full w-full pt-4 z-[1400] glass'>
 				<IconButton
@@ -179,14 +149,8 @@ export default function PlayerDialog() {
 										</Link>
 									</div>
 								</div>
-								<IconButton  size='large'>
-									{isOnLibrary ?
-									<FavoriteRoundedIcon style={{width:30, height:30}}/>
-									:
-									<FavoriteBorderRoundedIcon style={{width:30, height:30}}/>
-									
-								}
-								</IconButton>
+								{isAuthenticated && <SongAddRemoveComponent/>}
+								
 							</div>
 
 							
@@ -266,14 +230,22 @@ export default function PlayerDialog() {
 				<div className='items-center gap-4 w-full justify-end'>
 				<div className='w-full px-4 flex items-center justify-between'>
 					<IconButton
-			
+						onClick={setShuffle}
 						>
-							<ShuffleRoundedIcon className='h-4 w-4' />
+							{
+								isShuffle ? 
+								<ShuffleRoundedIcon className='h-4 w-4' color='info' />:
+								<ShuffleRoundedIcon className='h-4 w-4'  />
+
+
+							}
 					</IconButton>
 
+				{isAuthenticated &&
 					<IconButton>
 						<QueueMusicRoundedIcon  />
-					</IconButton>
+					</IconButton>}
+					
 				</div>
 
 					

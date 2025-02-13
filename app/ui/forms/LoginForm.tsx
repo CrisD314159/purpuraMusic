@@ -47,11 +47,11 @@ export default function LoginForm(){
         />
       </div>
       
-      <div className="flex flex-col items-center justify-center space-y-7">
+      <div className="flex flex-col items-center justify-center space-y-7 w-[80%]">
         <Button disabled={pending} type="submit" variant="outlined" color="primary">Login</Button>
-        <Link href="/signup">
-          <Button variant="outlined" color="info">Signup</Button>
-        </Link>
+          <Button LinkComponent={Link} href="/signup" variant="outlined" color="info">Signup</Button>
+          <Button LinkComponent={Link} href="/dashboard" variant="outlined" color="warning">Continue without an account</Button>
+   
       </div>
 
      

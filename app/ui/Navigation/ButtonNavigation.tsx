@@ -8,17 +8,19 @@ import Link from 'next/link';
 import TableRowsRoundedIcon from '@mui/icons-material/TableRowsRounded';
 import { useState } from 'react';
 import PlayerDialog from '../Player/PlayerDialog';
+import '@/app/css/glassEffect.css'
 
 
 export default function ButtonNavigation() {
   const [value, setValue] = useState(0);
 
   return (
-    <Box sx={{ width: '100%', position:'absolute', bottom:0, margin:'auto', zIndex:1000 }}>
+ 
+    <Box  sx={{ width: '100%', position:'absolute', bottom:0, margin:'auto', zIndex:1000}}>
       <PlayerDialog/>
       <BottomNavigation
         showLabels={false}
-        sx={{ backgroundColor: 'transparent', marginBottom:'30px' }}
+        sx={{ backgroundColor: '#0e0e0e3b',boxShadow :'0 4px 30px rgba(25, 25, 25, 0.5)', backdropFilter:'blur(15px)', paddingBottom:'30px', height:'100%' }}
         value={value}
         onChange={(event, newValue) => {
           setValue(newValue);

@@ -21,10 +21,11 @@ export async function LoginFetch(email:string, password:string){
         message: '401'
       }
     }
-    if(response.status === 404) {
+    if(response.status !== 200) {
+      const data = await response.json()
       return {
-        success: false,
-        message: 'User not found'
+        success: data.success,
+        message: data.message
       }
     }
     

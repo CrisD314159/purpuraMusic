@@ -78,6 +78,7 @@ export default function PlayListDialogComponent({playlist}:PlaylistComponent) {
           <div className='flex justify-center rounded-xl' style={{boxShadow:`3px 3px 60px 25px ${color}`}}>
             <Image src={playlist.imageUrl} width={220} height={220} alt='Playlist Image' unoptimized/>
           </div>
+          <p className='mt-5 text-xl font-medium'>{playlist.name}</p>
 
           <PlaylistSongsContainer id={playlist.id} color={color}/>
 

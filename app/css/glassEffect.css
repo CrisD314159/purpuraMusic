@@ -6,3 +6,11 @@
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
+.glassDark{
+  background: #0e0e0e3b;
+  position: fixed;
+  border-radius: 2px;
+  box-shadow: 0 4px 30px rgba(25, 25, 25, 0.5);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+}

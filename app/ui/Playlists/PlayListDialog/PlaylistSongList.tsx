@@ -17,7 +17,7 @@ type SongsListProps = {
 
 export default function PlaylistSongList({ initialSongs, color }: SongsListProps) {
   const [songs] = useState<Song[]>(initialSongs)
-  const {currentSong, isPlaying, playAlbum, togglePlay} = usePLayerStore()
+  const {currentSong, isPlaying, playAlbum, togglePlay, playAlbumShuffle} = usePLayerStore()
 
   const handlePlayLibrary = () =>{
     const isCurrentLibraryPlaying = songs.some( song => song.id === currentSong?.id)
@@ -27,6 +27,11 @@ export default function PlaylistSongList({ initialSongs, color }: SongsListProps
     }
 
   }
+
+  const handlePlayLibraryShuffle = () =>{
+    playAlbumShuffle(songs, 0)
+
+}
 
   const handlePlaySong = (index: number)=>{
   
@@ -49,7 +54,9 @@ export default function PlaylistSongList({ initialSongs, color }: SongsListProps
           <PlayArrowIcon/>
         </Button>
     }
-        < Button  variant='contained' sx={{borderRadius:4, background:color, width:'100px', height:50}}>
+        < Button  variant='contained' sx={{borderRadius:4, background:color, width:'100px', height:50}}
+        onClick={handlePlayLibraryShuffle}
+        >
           <ShuffleIcon/>
         </Button>
       </div>
