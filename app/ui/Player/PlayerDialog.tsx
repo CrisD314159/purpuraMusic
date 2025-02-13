@@ -132,8 +132,8 @@ export default function PlayerDialog() {
 					{currentSong ? (
 						<>
 							<Image
-              width={300}
-              height={300}
+              width={320}
+              height={320}
 								src={currentSong.imageUrl ?? ''}
 								alt={currentSong.name}
 								className='w-72 h-72 object-cover rounded-md'

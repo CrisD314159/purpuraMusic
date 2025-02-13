@@ -1,10 +1,11 @@
 'use client'
-import FavoritesList from './FavoritesList'
 import { GetUserFavorites } from '@/app/lib/actions/serverActions/getActions'
 import { CircularProgress } from '@mui/material'
+import dynamic from 'next/dynamic'
 import useSWR from 'swr'
 
 const INITIAL_NUMBER_OF_USERS = 20
+const FavoritesList = dynamic(()=> import('./FavoritesList'))
 
 const fetcher = async ()=>{
   const response = await GetUserFavorites(0, INITIAL_NUMBER_OF_USERS)
