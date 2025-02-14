@@ -85,4 +85,44 @@ export async function GetPlaylistSongs(id:string)
   }
 }
 
+export async function GetArtistPage(id:string)
+{
+  if(isNullOrEmpty(id)) return
+  try {
+
+    const response = await fetch(`${apiURL}/artist/getArtistProfile/${id}`)
+    
+    if(response.status === 200){
+      const artist = await response.json()
+      return artist
+    }
+
+    throw new Error("An error occured while fetching the artist")
+    
+  } catch (error) {
+    throw error
+    
+  }
+}
+
+export async function GetAlbumPage(id:string)
+{
+  if(isNullOrEmpty(id)) return
+  try {
+
+    const response = await fetch(`${apiURL}/album/getAlbum/${id}`)
+    
+    if(response.status === 200){
+      const album = await response.json()
+      return album
+    }
+
+    throw new Error("An error occured while fetching the album")
+    
+  } catch (error) {
+    throw error
+    
+  }
+}
+
 

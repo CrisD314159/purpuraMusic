@@ -2,6 +2,7 @@
 import { GetUserSearchResults } from "@/app/lib/actions/serverActions/getActions";
 import { Artist, Playlist, Song } from "@/app/lib/definitions";
 import { usePLayerStore } from "@/app/store/usePlayerStore";
+import MiniArtistComponent from "@/app/ui/Artist/MiniArtistComponent";
 import SearchInput from "@/app/ui/Search/SearchInput";
 import SongComponent from "@/app/ui/Song/SongComponent";
 import { CircularProgress, List } from "@mui/material";
@@ -58,6 +59,9 @@ export default function SearchPage() {
             );
           })}
           <p className="text-xl mb-5">Top Artists</p>
+          {data.artists.map((artist) => (
+            <MiniArtistComponent key={artist.id} artist={artist}/>
+          ))}
           <p className="text-xl mb-5">Top Playlists</p>
         </List>
       ):

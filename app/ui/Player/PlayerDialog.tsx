@@ -21,7 +21,6 @@ import { MiniPlayerControls } from './MiniPlayerControls';
 import VolumeDownIcon from '@mui/icons-material/VolumeDown';
 import PlayerDinamicBackground from './PlayerDinamicBackground';
 import PlayerComponent from './PlayerComponent';
-import Link from 'next/link';
 import { defaultSongImage } from '@/app/lib/definitions';
 import SongAddRemoveComponent from '../Song/SongAddRemoveComponent';
 import { useAuthStore } from '@/app/store/useAuthStore';
@@ -143,10 +142,8 @@ export default function PlayerDialog() {
 									<div className='font-medium text-xl truncate'>
 										{currentSong.name}
 									</div>
-									<div className="w-8" style={{ gap: "7px" }}>
-										<Link href={currentSong.artists[0].id} className="text-base text-zinc-200 truncate cursor-pointer">
+									<div className="w-52 text-base text-zinc-200 truncate cursor-pointer" >
 											{currentSong.artists.map((artist) => artist.name).join(", ")}
-										</Link>
 									</div>
 								</div>
 								{isAuthenticated && <SongAddRemoveComponent/>}

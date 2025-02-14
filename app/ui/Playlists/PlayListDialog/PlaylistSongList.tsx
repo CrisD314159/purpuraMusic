@@ -40,7 +40,7 @@ export default function PlaylistSongList({ initialSongs, color }: SongsListProps
   }
 
   return (
-    <div className='flex flex-col w-full items-center mt-6'>
+    <div className='flex flex-col w-full h-full items-center mt-6'>
       <div className='w-11/12 flex gap-6 justify-center'>
       {isPlaying ? 
         < Button  variant='contained' sx={{borderRadius:4, background:color, width:'100px', height:50}}

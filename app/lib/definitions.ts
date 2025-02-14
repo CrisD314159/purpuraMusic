@@ -104,7 +104,20 @@ export interface Artist{
   id:string,
   name:string,
   description?:string
+  imageUrl?:string,
+  topSongs?:Song[],
+  albums?:Album[]
 
+}
+
+export interface Album{
+  id:string,
+  name:string,
+  pictureUrl:string,
+  releaseDate:string,
+  songs?:Song[]
+  artistId:string,
+  artistName:string
 }
 
 export interface Genre{
