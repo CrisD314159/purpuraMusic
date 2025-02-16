@@ -155,10 +155,15 @@ export const usePLayerStore = create<PlayerStore>((set, get)=> ({
   addToQueue: (song: Song) => {
     if (!song) return;
   
-    const { queue } = get();
+    const { queue, currentIndex } = get();
+
+    const replaceQueue = [...queue]
+
+    replaceQueue.splice(currentIndex + 1, 0, song)
+
   
     set({
-      queue: [...queue, song]
+      queue: [...replaceQueue]
     });
   }
 

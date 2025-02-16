@@ -5,7 +5,7 @@ import { usePLayerStore } from "@/app/store/usePlayerStore";
 import MiniArtistComponent from "@/app/ui/Artist/MiniArtistComponent";
 import SearchInput from "@/app/ui/Search/SearchInput";
 import SongComponent from "@/app/ui/Song/SongComponent";
-import { CircularProgress, List } from "@mui/material";
+import { Box, CircularProgress, List } from "@mui/material";
 import Image from "next/image";
 import { useState } from "react";
 import useSWR from "swr";
@@ -38,36 +38,66 @@ export default function SearchPage() {
     playAlbum(data.songs, index);
   };
 
-  return (
-    <div className="w-full h-full flex flex-col items-center gap-3">
-      <SearchInput debounce={debounce}/>
-      {isLoading && <CircularProgress />}
-      {error && <p>{error.message}</p>}
-      {data ?(
-        <List sx={{ width: '95%', height:'525px',  overflowY: 'auto' }}>
-          <p className="text-xl mb-5">Top Songs</p>
-          {data.songs.map((song, index) => {
-            const isCurrent = currentSong?.id === song.id;
-            return (
-              <div key={song.id} className="w-full">
-                {isCurrent && isPlaying ? (
-                  <SongComponent current song={song} handlePLaySong={handlePlaySong} index={index} />
-                ) : (
-                  <SongComponent current={false} song={song} handlePLaySong={handlePlaySong} index={index} />
-                )}
-              </div>
-            );
-          })}
-          <p className="text-xl mb-5">Top Artists</p>
-          {data.artists.map((artist) => (
-            <MiniArtistComponent key={artist.id} artist={artist}/>
-          ))}
-          <p className="text-xl mb-5">Top Playlists</p>
-        </List>
-      ):
-      <Image src="/purpura-vanish.png" alt="search" width={250} height={250} style={{position:'absolute', top:'30%'}} />
-    
-    }
-    </div>
-  );
+
+return (
+  
+  <div className="w-full flex flex-col h-screen items-center gap-3">
+    <SearchInput debounce={debounce}/>
+    {isLoading &&(
+      <div className="w-full flex flex-col h-screen items-center pt-40">
+        <CircularProgress />
+
+      </div>)}
+    {error && <p className="mt-10">{error.message}</p>}
+    {data ? (
+       <Box
+       sx={{
+         display: "flex",
+         flexDirection: "column",
+         width: "100%",
+         height: "100vh",
+         backgroundColor: "#010101",
+         color: "#fff",
+         fontFamily: "Montserrat",
+       }}
+     >
+        <Box sx={{ flex: 1, overflowY: "auto", pb: "150px", px: 2, pt: 15, width: "100%" }}>
+          <List sx={{ width: '100%' }}>
+            <p className="text-xl mb-5">Top Songs</p>
+            {data.songs.map((song, index) => {
+              const isCurrent = currentSong?.id === song.id;
+              return (
+                <div key={song.id} className="w-full">
+                  {isCurrent && isPlaying ? (
+                    <SongComponent current song={song} handlePLaySong={handlePlaySong} index={index} />
+                  ) : (
+                    <SongComponent current={false} song={song} handlePLaySong={handlePlaySong} index={index} />
+                  )}
+                </div>
+              );
+            })}
+              <p className="text-xl mb-5 ">Top Artists</p>
+            <div className="flex items-center overflow-x-auto w-[90vw] ">
+              {data.artists.map((artist) => (
+                <MiniArtistComponent key={artist.id} artist={artist}/>
+              ))}
+            </div>
+            <p className="text-xl mb-5">Top Playlists</p>
+          </List>
+        </Box>
+
+     </Box>
+    ) : (
+      <Image
+        src="/purpura-vanish.png"
+        alt="search"
+        width={250}
+        height={250}
+        style={{ position: "absolute", top: "30%" }}
+      />
+    )}
+  </div>
+);
+
+
 }

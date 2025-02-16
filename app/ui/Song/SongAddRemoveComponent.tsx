@@ -46,7 +46,7 @@ export default function SongAddRemoveComponent() {
                   }
         </IconButton>
         <ErrorSnackBar message="Error updating Song" open={error} setOpen={setError} />
-        <SuccessSnackBar message="Done!" open={success} setOpen={setSuccess} />
+        <SuccessSnackBar message="Done" open={success} setOpen={setSuccess} />
       </>
 
     )

@@ -8,6 +8,7 @@ import ShuffleIcon from '@mui/icons-material/Shuffle';
 import { usePLayerStore } from '@/app/store/usePlayerStore'
 import PauseIcon from '@mui/icons-material/Pause';
 import SongComponent from '../../Song/SongComponent';
+import { AddPlay } from '@/app/lib/actions/serverActions/createActions';
 
 type SongsListProps = {
   initialSongs: Song[]
@@ -33,10 +34,10 @@ export default function PlaylistSongList({ initialSongs, color }: SongsListProps
 
 }
 
-  const handlePlaySong = (index: number)=>{
-  
+  const handlePlaySong = async (index: number, song:Song)=>{
     if(!songs) return
     playAlbum(songs, index)
+    await AddPlay(song.id)
   }
 
   return (
@@ -66,9 +67,9 @@ export default function PlaylistSongList({ initialSongs, color }: SongsListProps
           return (
             <div key={song.id} className='w-full'>
               {isCurrent && isPlaying ? (
-                <SongComponent  current song={song} handlePLaySong={handlePlaySong} index={index} />
+                <SongComponent  current song={song} handlePLaySong={()=> handlePlaySong(index, song)} index={index} />
               ) : (
-                <SongComponent  current={false} song={song} handlePLaySong={handlePlaySong} index={index} />
+                <SongComponent  current={false} song={song} handlePLaySong={()=> handlePlaySong(index, song)} index={index} />
               )}
             </div>
           )

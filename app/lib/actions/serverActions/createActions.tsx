@@ -1,6 +1,7 @@
 'use server'
 
-import { ApiGeneralResponse, CreatePlayListFormSchema, FormState } from "../../definitions"
+import { cookies } from "next/headers"
+import { ApiGeneralResponse, apiURL, CreatePlayListFormSchema, FormState, isNullOrEmpty } from "../../definitions"
 import { CreatePlaylistRequest } from "../requests/postApiRequests"
 
 
@@ -38,5 +39,31 @@ export async function CreatePlaylist(state:FormState, formdata: FormData  )
     message: 'An error occured while trying to create the playlist'
   } 
  }
+
+}
+
+
+export async function AddPlay(songId:string){
+  try {
+    const token = (await cookies()).get('token')?.value
+    if(isNullOrEmpty(token)) return false
+    const response = await fetch(`${apiURL}/song/addPlay`, {
+      method:'POST',
+      headers:{
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body:JSON.stringify({songId})
+    })
+
+    if(response.status === 200){
+      return true
+    }
+
+    throw new Error("Error")
+    
+  } catch  {
+    return true
+  }
 
 }

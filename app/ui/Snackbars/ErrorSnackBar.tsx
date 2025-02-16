@@ -14,7 +14,7 @@ export default function ErrorSnackBar({message, open, setOpen}:{message:string, 
   };
 
   return (
-    <Snackbar onClose={handleClose} open={open} autoHideDuration={6000}>
+    <Snackbar onClose={handleClose} open={open} autoHideDuration={2000} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
       <Alert severity="error" variant="filled">
         {message}
       </Alert>

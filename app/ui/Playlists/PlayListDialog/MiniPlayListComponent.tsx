@@ -4,7 +4,7 @@ import Image from "next/image";
 
 interface MiniPlaylistProps{
   playlist: Playlist
-  setOpen : ()=> void
+  setOpen ?: ()=> void
 }
 
 export default function MiniPlayListComponent({playlist, setOpen}:MiniPlaylistProps) {

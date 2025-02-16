@@ -6,11 +6,14 @@ import { forwardRef, useState } from 'react';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { DialogContent, IconButton, List, ListItemButton, ListItemText, Slide } from '@mui/material';
 import QueueIcon from '@mui/icons-material/Queue';
-import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import AlbumIcon from '@mui/icons-material/Album';
 import InterpreterModeIcon from '@mui/icons-material/InterpreterMode';
 import { useAuthStore } from '@/app/store/useAuthStore';
+import Link from 'next/link';
+import { usePLayerStore } from '@/app/store/usePlayerStore';
+import { Song } from '@/app/lib/definitions';
+import AddToPlaylist from './AddToPlaylist';
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -22,15 +25,25 @@ const Transition = forwardRef(function Transition(
 });
 
 
+interface SongOptionsDialogProps {
+  song: Song
+}
 
 
-export default function SongOptionsDialog() {
+
+export default function SongOptionsDialog({song}:SongOptionsDialogProps) {
   const [open, setOpen] = useState(false);
   const {isAuthenticated} = useAuthStore();
+  const {addToQueue} = usePLayerStore()
 
   const handleClickOpen = () => {
     setOpen(true);
   };
+
+  const handleAddToQueue = ()=>{
+    addToQueue(song)
+    setOpen(false)
+  }
 
   const handleClose = () => {
     setOpen(false);
@@ -56,21 +69,19 @@ export default function SongOptionsDialog() {
             <FavoriteIcon/>
             <ListItemText sx={{marginLeft:'10px'}}>Remove from favorites</ListItemText>
           </ListItemButton>
-          <ListItemButton >
+          <ListItemButton onClick={handleAddToQueue} >
             <QueueIcon/>
-            <ListItemText sx={{marginLeft:'10px'}}>Add Song to queue</ListItemText>
+            <ListItemText sx={{marginLeft:'10px'}}>Play Next</ListItemText>
           </ListItemButton>
-          <ListItemButton >
-            <PlaylistAddIcon/>
-            <ListItemText sx={{marginLeft:'10px'}}>Add to playlist</ListItemText>
-          </ListItemButton>
+          <AddToPlaylist song={song}/>
           </>
          )}
-          <ListItemButton >
+          <ListItemButton LinkComponent={Link} href={`/dashboard/artists/${song.artists[0].id}`} >
             <InterpreterModeIcon/>
             <ListItemText sx={{marginLeft:'10px'}}>Go to artist profile</ListItemText>
           </ListItemButton>
-          <ListItemButton >
+
+          <ListItemButton LinkComponent={Link} href={`/dashboard/albums/${song.albumId}`} >
             <AlbumIcon/>
             <ListItemText sx={{marginLeft:'10px'}}>Go to album page</ListItemText>
           </ListItemButton>

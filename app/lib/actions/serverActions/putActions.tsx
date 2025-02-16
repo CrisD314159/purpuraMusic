@@ -58,7 +58,34 @@ try {
     body:JSON.stringify({songId})
   })
 
-  console.log(response.status);
+if(response.ok){
+  return {
+    success: true,
+    message : "Song added/removed"
+  }
+}
+
+throw new Error("Error updating the song")
+  
+} catch (error) {
+  throw error;
+}
+
+}
+
+export async function AddSongToPlaylist(songId:string, playlistId:string){
+
+try {
+  const token = (await cookies()).get('token')?.value
+  const response = await fetch(`${apiURL}/playlist/addSong`, {
+    method:'PUT',
+    headers:{
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body:JSON.stringify({songId, playlistId})
+  })
+
 if(response.ok){
   return {
     success: true,

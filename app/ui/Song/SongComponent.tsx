@@ -10,9 +10,10 @@ type SongProps = {
   current: boolean
   handlePLaySong: (index:number)=> void
   index:number
+  notShowArtist?: boolean
 }
 
-export default function SongComponent({ song, current, handlePLaySong, index}: SongProps) {
+export default function SongComponent({ song, current, handlePLaySong, index, notShowArtist}: SongProps) {
 
   return (
     <div  className='rounded-xl bg-neutral-900 w-full flex gap-4 items-center mb-5 relative'>
@@ -27,15 +28,19 @@ export default function SongComponent({ song, current, handlePLaySong, index}: S
            
           </div>
         </div>
-        <div className=" absolute sm:left-1/2 left-[73%] flex-col hidden sm:block">
-        {song.artists.map((artist)=>{
-              return (
-                <p className="text-xs" key={artist.id}>{artist.name} </p>
-              )
-            })}
-        </div>
+        {
+          !notShowArtist && (
+            <div className=" absolute sm:left-1/2 left-[73%] flex-col hidden sm:block">
+            {song.artists.map((artist)=>{
+                  return (
+                    <p className="text-xs" key={artist.id}>{artist.name} </p>
+                  )
+                })}
+            </div>
+          )
+        }
       </Button>
-      <SongOptionsDialog/>
+      <SongOptionsDialog song={song}/>
       
     </div>
   )

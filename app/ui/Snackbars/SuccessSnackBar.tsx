@@ -14,8 +14,8 @@ export default function SuccessSnackBar({message, open, setOpen}:{message:string
   };
 
   return (
-    <Snackbar onClose={handleClose} open={open} autoHideDuration={6000}>
-      <Alert severity="success" variant="filled">
+    <Snackbar onClose={handleClose} open={open} autoHideDuration={2000} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+      <Alert variant="standard">
         {message}
       </Alert>
     </Snackbar>

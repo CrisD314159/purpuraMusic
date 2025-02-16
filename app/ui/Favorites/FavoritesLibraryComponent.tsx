@@ -5,7 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
 import { TransitionProps } from '@mui/material/transitions';
-import { Box, Slide, Typography } from '@mui/material';
+import { Box, List, Slide, Typography } from '@mui/material';
 import { forwardRef, useState } from 'react';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
@@ -40,34 +40,63 @@ export default function FavoritesLibraryComponent() {
        <Typography variant="h5" sx={{fontFamily:'Montserrat', color:'#fff', fontSize:25}}>Liked Songs</Typography>
        <ArrowForwardIosRoundedIcon/>
       </Button>
+
       <Dialog
         fullScreen
-        sx={{zIndex:990}}
+        sx={{ zIndex: 990 }}
         open={open}
         onClose={handleClose}
-        slots={{transition: Transition}}
+        slots={{ transition: Transition }}
       >
-        <Box sx={{width:'100%', backgroundColor:'#010101', color:'#fff', fontFamily:'Montserrat'}}>
-          <Toolbar>
-            <IconButton
-              edge="start"
-              color="inherit"
-              onClick={handleClose}
-              aria-label="close"
-            >
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            width: "100%",
+            height: "100vh",
+            backgroundColor: "#010101",
+            color: "#fff",
+            fontFamily: "Montserrat",
+          }}
+        >
+          <Toolbar
+            style={{
+              background: "#0e0e0e3b",
+              position: "fixed",
+              top: 0,
+              width: "100%",
+              zIndex: 999,
+              boxShadow: "0 4px 30px rgba(25, 25, 25, 0.5)",
+              backdropFilter: "blur(15px)",
+            }}
+          >
+            <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
               <ArrowBackIosNewRoundedIcon />
             </IconButton>
           </Toolbar>
-        </Box>
 
-        <Box sx={{display:'flex', flexDirection:'column', width:'100%', height:'100%', background:'#010101', alignItems:'center'}}>
-          <div className='w-11/12 flex justify-center linearBox rounded-xl' style={{boxShadow:'3px 3px 50px 15px #bd52ee'}}>
-            <FavoriteRoundedIcon sx={{height:200, width:200}} color='info'/>
-          </div>
-          <FavoritesContainer/>
+          {/* Contenedor flexible con scroll */}
+          <Box sx={{ flex: 1, overflowY: "auto", pt: 8, pb: "150px"  }}>
+            <List
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                width: "100%",
+                alignItems: "center",
+              }}
+            >
+              <div
+                className="w-11/12 flex justify-center linearBox rounded-xl"
+                style={{ boxShadow: "3px 3px 50px 15px #bd52ee" }}
+              >
+                <FavoriteRoundedIcon sx={{ height: 200, width: 200 }} color="info" />
+              </div>
+              <FavoritesContainer open={open} />
+            </List>
+          </Box>
         </Box>
-    
       </Dialog>
+
     </>
   );
 }

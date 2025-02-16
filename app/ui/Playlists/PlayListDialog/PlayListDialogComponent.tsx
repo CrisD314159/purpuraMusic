@@ -4,7 +4,7 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
 import { TransitionProps } from '@mui/material/transitions';
-import { Box, Slide } from '@mui/material';
+import { Box, List, Slide } from '@mui/material';
 import { forwardRef, useEffect, useState } from 'react';
 import '@/app/css/linearGradientAnimation.css'
 import { Playlist } from '@/app/lib/definitions';
@@ -56,34 +56,59 @@ export default function PlayListDialogComponent({playlist}:PlaylistComponent) {
       <MiniPlayListComponent  playlist={playlist} setOpen={handleClickOpen}/>
       <Dialog
         fullScreen
-        sx={{zIndex:990}}
+        sx={{ zIndex: 990 }}
         open={open}
         onClose={handleClose}
-        slots={{transition: Transition}}
+        slots={{ transition: Transition }}
       >
-        <Box sx={{width:'100%', backgroundColor:'#010101', color:'#fff', fontFamily:'Montserrat'}}>
-          <Toolbar>
-            <IconButton
-              edge="start"
-              color="inherit"
-              onClick={handleClose}
-              aria-label="close"
-            >
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            width: "100%",
+            height: "100vh",
+            backgroundColor: "#010101",
+            color: "#fff",
+            fontFamily: "Montserrat",
+          }}
+        >
+          <Toolbar
+            style={{
+              background: "#0e0e0e3b",
+              position: "fixed",
+              top: 0,
+              width: "100%",
+              zIndex: 999,
+              boxShadow: "0 4px 30px rgba(25, 25, 25, 0.5)",
+              backdropFilter: "blur(15px)",
+            }}
+          >
+            <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
               <ArrowBackIosNewRoundedIcon />
             </IconButton>
           </Toolbar>
+
+          {/* Contenedor flexible con scroll */}
+          <Box sx={{ flex: 1, overflowY: "auto", pt: 8, pb: "150px"  }}>
+            <List
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                width: "100%",
+                alignItems: "center",
+              }}
+            >
+              <div
+                className="flex justify-center linearBox rounded-xl"
+                style={{ boxShadow: `3px 3px 50px 15px ${color}` }}
+              >
+                <Image src={playlist.imageUrl ?? ""} width={200} height={200} alt='data Image' unoptimized/>
+                
+              </div>
+              <PlaylistSongsContainer color={color} id={playlist.id}  open={open}/>
+            </List>
+          </Box>
         </Box>
-
-        <Box sx={{display:'flex', flexDirection:'column', width:'100%', height:'100%', background:'#010101', alignItems:'center'}}>
-          <div className='flex justify-center rounded-xl' style={{boxShadow:`3px 3px 60px 25px ${color}`}}>
-            <Image src={playlist.imageUrl} width={220} height={220} alt='Playlist Image' unoptimized/>
-          </div>
-          <p className='mt-5 text-xl font-medium'>{playlist.name}</p>
-
-          <PlaylistSongsContainer id={playlist.id} color={color}/>
-
-        </Box>
-    
       </Dialog>
     </>
   );

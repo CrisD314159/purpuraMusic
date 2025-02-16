@@ -11,7 +11,7 @@ interface SearchProps{
 export default function SearchInput({debounce}:SearchProps) {
   return (
     <Paper
-      sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width:'95%', marginTop:'56px' }}
+      sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width:'95%', marginTop:'56px', position:'fixed', zIndex:999 }}
     >
       <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
         <SearchIcon />

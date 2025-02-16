@@ -124,5 +124,43 @@ export async function GetAlbumPage(id:string)
     
   }
 }
+export async function GetTopAlbums()
+{
+  try {
+    const response = await fetch(`${apiURL}/album/getTopAlbums`)
+    
+    if(response.status === 200){
+      const albums = await response.json()
+      return albums
+    }
+
+    throw new Error("An error occured while fetching the albums")
+    
+  } catch (error) {
+    throw error
+    
+  }
+}
+export async function GetTopSongs()
+{
+  try {
+    const response = await fetch(`${apiURL}/song/getTopSongs`)
+    console.log(response.status);
+    
+    if(response.status === 200){
+      const songs = await response.json()
+      console.log(songs);
+      return songs
+    }
+
+
+
+    throw new Error("An error occured while fetching the songs")
+    
+  } catch (error) {
+    throw error
+    
+  }
+}
 
 

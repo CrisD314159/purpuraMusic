@@ -9,6 +9,7 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import ShuffleIcon from '@mui/icons-material/Shuffle';
 import { usePLayerStore } from '@/app/store/usePlayerStore'
 import PauseIcon from '@mui/icons-material/Pause';
+import { AddPlay } from '@/app/lib/actions/serverActions/createActions'
 
 type SongsListProps = {
   initialSongs: Song[]
@@ -41,10 +42,10 @@ export default function FavoritesList({ initialSongs }: SongsListProps) {
 
   }
 
-  const handlePlaySong = (index: number)=>{
-  
+const handlePlaySong = async (index: number, song:Song)=>{
     if(!songs) return
     playAlbum(songs, index)
+    await AddPlay(song.id)
   }
 
   useEffect(() => {
@@ -74,15 +75,15 @@ export default function FavoritesList({ initialSongs }: SongsListProps) {
           <ShuffleIcon/>
         </Button>
       </div>
-      <List sx={{width:'91%', height:'327px', display:'flex', flexDirection:'column', alignItems:'center', overflowY:'auto', paddingTop:3}}>
+      <List sx={{width:'91%', display:'flex', height:'100%', flexDirection:'column', alignItems:'center', paddingTop:3}}>
         {songs.map((song, index) => {
           const isCurrent = currentSong?.id === song.id
           return (
             <div key={song.id} className='w-full'>
               {isCurrent && isPlaying ? (
-                <SongComponent  current song={song} handlePLaySong={handlePlaySong} index={index} />
+                <SongComponent  current song={song} handlePLaySong={()=> handlePlaySong(index, song)} index={index} />
               ) : (
-                <SongComponent  current={false} song={song} handlePLaySong={handlePlaySong} index={index} />
+                <SongComponent  current={false} song={song} handlePLaySong={()=> handlePlaySong(index, song)} index={index} />
               )}
             </div>
           )
