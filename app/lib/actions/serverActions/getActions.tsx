@@ -145,11 +145,10 @@ export async function GetTopSongs()
 {
   try {
     const response = await fetch(`${apiURL}/song/getTopSongs`)
-    console.log(response.status);
     
     if(response.status === 200){
       const songs = await response.json()
-      console.log(songs);
+
       return songs
     }
 

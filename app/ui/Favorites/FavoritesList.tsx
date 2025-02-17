@@ -4,7 +4,7 @@ import { Song } from '@/app/lib/definitions'
 import { useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 import SongComponent from '../Song/SongComponent'
-import { Button, List } from '@mui/material'
+import { Button, CircularProgress, List } from '@mui/material'
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import ShuffleIcon from '@mui/icons-material/Shuffle';
 import { usePLayerStore } from '@/app/store/usePlayerStore'
@@ -20,13 +20,29 @@ const NUMBER_OF_SONGS_TO_FETCH = 20
 export default function FavoritesList({ initialSongs }: SongsListProps) {
   const [offset, setOffset] = useState(NUMBER_OF_SONGS_TO_FETCH)
   const [songs, setSongs] = useState<Song[]>(initialSongs)
-  const { ref, inView } =  useInView()
+  const [hasMore, setHasMore] = useState<boolean>(true)
+  const [isLoadingMore, setIsLoadingMore] = useState(false) // Evita llamadas dobles
+  const { ref, inView } = useInView({
+    // rootMargin: '100px', // Opcional: dispara "inView" antes de llegar al div
+    threshold: 0.1,         // Opcional: porcentaje de visibilidad para considerarlo “en vista”
+  })
   const {currentSong, isPlaying, playAlbum, togglePlay, playAlbumShuffle} = usePLayerStore()
 
   const loadMoreSongs = async () => {
-    const apiUsers = await GetUserFavorites(offset, NUMBER_OF_SONGS_TO_FETCH)
-    setSongs(songs => [...songs, ...apiUsers.songs])
-    setOffset(offset => offset + NUMBER_OF_SONGS_TO_FETCH)
+    try {
+      setIsLoadingMore(true)
+      const apiUsers = await GetUserFavorites(offset, NUMBER_OF_SONGS_TO_FETCH)
+
+      if (apiUsers.songs.length === 0) {
+        setHasMore(false)
+        return
+      }
+
+      setSongs(prev => [...prev, ...apiUsers.songs])
+      setOffset(prev => prev + NUMBER_OF_SONGS_TO_FETCH)
+    } finally {
+      setIsLoadingMore(false)
+    }
   }
 
   const handlePlayLibrary = () =>{
@@ -49,10 +65,11 @@ const handlePlaySong = async (index: number, song:Song)=>{
   }
 
   useEffect(() => {
-    if (inView) {
+    if (inView && !isLoadingMore) {
+      console.log("hola");
       loadMoreSongs()
     }
-  }, [inView])
+  }, [inView, isLoadingMore])
 
   return (
     <div className='flex flex-col w-full items-center h-3/4 mt-6'>
@@ -88,9 +105,12 @@ const handlePlaySong = async (index: number, song:Song)=>{
             </div>
           )
         })}
-        <div ref={ref}>
-          Loading...
+      
+      {hasMore &&
+      <div ref={ref} className="mt-4 mb-8">
+          {isLoadingMore && <CircularProgress color='info' />}
         </div>
+      }
         {/* <button onClick={loadMoreUsers}>Load more</button> */}
       </List>
 

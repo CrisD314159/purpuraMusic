@@ -45,12 +45,14 @@ export default function LoginForm(){
           helperText={state?.errors?.password && <p>{state.errors.password}</p>}
           error={!!state?.errors?.password}
         />
+          <Link href="/recoverAccount" className="text-violet-600 text-sm hover:text-pink-400" color="primary">Forgot your password?</Link>
       </div>
       
       <div className="flex flex-col items-center justify-center space-y-7 w-[80%]">
-        <Button disabled={pending} type="submit" variant="outlined" color="primary">Login</Button>
-          <Button LinkComponent={Link} href="/signup" variant="outlined" color="info">Signup</Button>
-          <Button LinkComponent={Link} href="/dashboard" variant="outlined" color="warning">Continue without an account</Button>
+
+          <Button disabled={pending} sx={{width:'10%'}} type="submit" variant="outlined" color="primary">Login</Button>
+          <Button LinkComponent={Link} sx={{width:'10%'}} href="/signup" variant="outlined" color="info">Signup</Button>
+          <Button LinkComponent={Link} href="/dashboard" variant="text" color="warning">Continue without an account</Button>
    
       </div>
 
