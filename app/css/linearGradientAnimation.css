@@ -16,7 +16,7 @@
 }
 
 .linearMorning {
-	background: linear-gradient(-45deg, #a204aa, #154dce, #25a70b, #829009);
+	background: linear-gradient(-45deg, #a204aa, #154dce, #25a70b, #908509);
 	background-size: 400% 400%;
 	animation: gradient 10s ease infinite;
 }
@@ -25,6 +25,7 @@
 	background: linear-gradient(-45deg, #a204aa, #8415ce, #370ba7, #19035c);
 	background-size: 400% 400%;
 	animation: gradient 10s ease infinite;
+	
 }
 .linearEvening {
 	background: linear-gradient(-45deg, #2e037e, #1f0280, #0b37a7, #1342c5);

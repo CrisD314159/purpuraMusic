@@ -20,7 +20,7 @@ export default function ButtonNavigation() {
       <PlayerDialog/>
       <BottomNavigation
         showLabels={false}
-        sx={{ backgroundColor: '#0e0e0e3b',boxShadow :'0 4px 30px rgba(25, 25, 25, 0.5)', backdropFilter:'blur(15px)', paddingBottom:'30px', height:'100%' }}
+        sx={{ backgroundColor: '#0505053b',boxShadow :'0 4px 30px rgba(25, 25, 25, 0.5)', backdropFilter:'blur(20px)', paddingBottom:'30px', height:'100%' }}
         value={value}
         onChange={(event, newValue) => {
           setValue(newValue);

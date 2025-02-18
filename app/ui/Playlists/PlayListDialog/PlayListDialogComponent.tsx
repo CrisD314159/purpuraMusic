@@ -12,6 +12,7 @@ import MiniPlayListComponent from './MiniPlayListComponent';
 import Image from 'next/image';
 import { Vibrant } from 'node-vibrant/browser';
 import PlaylistSongsContainer from './PlaylistSongsContainer';
+import PlaylistSongList from './PlaylistSongList';
 
 
 const Transition = forwardRef(function Transition(
@@ -105,7 +106,12 @@ export default function PlayListDialogComponent({playlist}:PlaylistComponent) {
                 <Image src={playlist.imageUrl ?? ""} width={200} height={200} alt='data Image' unoptimized/>
                 
               </div>
-              <PlaylistSongsContainer color={color} id={playlist.id}  open={open}/>
+              {
+                playlist && (playlist.songs?.length ?? 0) > 0 ?
+                <PlaylistSongList initialSongs={playlist.songs ?? []}  color={color}/>
+                :
+                <PlaylistSongsContainer color={color} id={playlist.id}  open={open}/>
+              }
             </List>
           </Box>
         </Box>

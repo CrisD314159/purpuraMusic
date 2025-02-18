@@ -141,6 +141,7 @@ export async function GetTopAlbums()
     
   }
 }
+
 export async function GetTopSongs()
 {
   try {
@@ -155,6 +156,28 @@ export async function GetTopSongs()
 
 
     throw new Error("An error occured while fetching the songs")
+    
+  } catch (error) {
+    throw error
+    
+  }
+}
+export async function GetPurpleDaylist()
+{
+  try {
+    const token = (await cookies()).get('token')?.value 
+    const response = await fetch(`${apiURL}/purpleDaylist/gerPurpleDaylist`, {
+      headers:{
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    
+    if(response.status === 200){
+      const playlist = await response.json()
+      return playlist
+    }
+
+    throw new Error("An error occured while fetching the purple daylist")
     
   } catch (error) {
     throw error
