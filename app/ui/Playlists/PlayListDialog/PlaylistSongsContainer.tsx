@@ -19,13 +19,17 @@ interface PlaylistContainerProps{
 }
 
 export default function PlaylistSongsContainer({id, color, open}:PlaylistContainerProps) {
-  const {data, error, isLoading, mutate} = useSWR(['favorites', id], fetcher)
+  const {data, error, isLoading, mutate} = useSWR(['songs', id], fetcher)
 
     useEffect(() => {
       if (open) {
         mutate(undefined, true); // Se asegura de obtener los datos más recientes
       }
     }, [open, mutate]);
+
+    const handleMutate = () =>{
+      mutate(undefined, true)
+    }
 
   if(isLoading) return <CircularProgress color='primary' sx={{mt:5}}/>
   if(error) return <p>An errror ocurred while fetching your songs</p>
@@ -35,6 +39,6 @@ export default function PlaylistSongsContainer({id, color, open}:PlaylistContain
    <IconButton onClick={() => mutate(undefined, true)} disabled={isLoading} sx={{ position:'absolute', top:240, right:'5%'}}>
       <RefreshIcon />
    </IconButton>
-    <PlaylistSongList initialSongs={data.songs} color={color} />
+    <PlaylistSongList mutate={handleMutate} removePlaylist={true} playlistId={id} initialSongs={data.songs} color={color} />
   </>)
 }

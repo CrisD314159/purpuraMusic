@@ -33,7 +33,7 @@ export default function PlayListsList() {
       <List sx={{overflowX: 'auto', display:'flex', flexDirection:'row', width:'100%', '&::-webkit-scrollbar': { display: 'none' }}}>
         {data?.map((playlist)=>{
           return (
-            <PlayListDialogComponent key={playlist.id} playlist={playlist}/> 
+            <PlayListDialogComponent mutate={mutate} key={playlist.id} playlist={playlist}/> 
           )
         })}
       </List>

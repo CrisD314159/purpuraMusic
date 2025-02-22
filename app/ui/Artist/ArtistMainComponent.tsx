@@ -39,12 +39,12 @@ export default function  ArtistMainComponent({id}:ArtistProps) {
 
 
   if(isLoading) return (
-  <div>
+  <div className="w-full flex flex-col h-screen items-center pt-40">
     <CircularProgress/>
   </div>)
 
   if(error) return (
-  <div>
+  <div className="w-full flex flex-col h-screen items-center pt-40">
     <h1>An error happened</h1>
   </div>)
 

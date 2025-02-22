@@ -12,11 +12,14 @@ import { AddPlay } from '@/app/lib/actions/serverActions/createActions';
 
 type SongsListProps = {
   initialSongs: Song[]
+  playlistId?: string
   color:string
+  removePlaylist?: boolean
+  mutate?: ()=> void
 }
 
 
-export default function PlaylistSongList({ initialSongs, color }: SongsListProps) {
+export default function PlaylistSongList({ initialSongs, color, playlistId, removePlaylist, mutate}: SongsListProps) {
   const [songs] = useState<Song[]>(initialSongs)
   const {currentSong, isPlaying, playAlbum, togglePlay, playAlbumShuffle} = usePLayerStore()
 
@@ -66,11 +69,7 @@ export default function PlaylistSongList({ initialSongs, color }: SongsListProps
           const isCurrent = currentSong?.id === song.id
           return (
             <div key={song.id} className='w-full'>
-              {isCurrent && isPlaying ? (
-                <SongComponent  current song={song} handlePLaySong={()=> handlePlaySong(index, song)} index={index} />
-              ) : (
-                <SongComponent  current={false} song={song} handlePLaySong={()=> handlePlaySong(index, song)} index={index} />
-              )}
+             <SongComponent mutate={mutate} removePlaylist={removePlaylist}  playlistId={playlistId}  current={isCurrent && isPlaying} song={song} handlePLaySong={()=> handlePlaySong(index, song)} index={index} />
             </div>
           )
         })}

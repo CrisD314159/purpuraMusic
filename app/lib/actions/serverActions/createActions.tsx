@@ -3,6 +3,7 @@
 import { cookies } from "next/headers"
 import { ApiGeneralResponse, apiURL, CreatePlayListFormSchema, FormState, isNullOrEmpty } from "../../definitions"
 import { CreatePlaylistRequest } from "../requests/postApiRequests"
+import { checkIsloggedIn } from "../../authChecks"
 
 
 export async function CreatePlaylist(state:FormState, formdata: FormData  )
@@ -45,6 +46,7 @@ export async function CreatePlaylist(state:FormState, formdata: FormData  )
 
 export async function AddPlay(songId:string){
   try {
+    await checkIsloggedIn()
     const token = (await cookies()).get('token')?.value
     if(isNullOrEmpty(token)) return false
     const response = await fetch(`${apiURL}/song/addPlay`, {

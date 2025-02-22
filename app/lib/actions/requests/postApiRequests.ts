@@ -1,6 +1,7 @@
 
 import { cookies } from "next/headers"
 import { apiURL } from "../../definitions"
+import { checkIsloggedIn } from "../../authChecks"
 
 
 
@@ -77,6 +78,7 @@ export async function SignUpFetch(email:string, password:string, firstname:strin
 
 export async function CreatePlaylistRequest(imageUrl:string | undefined, name:string, description:string | undefined){
   try {
+    await checkIsloggedIn()
     const token = (await cookies()).get('token')?.value
     const response = await fetch(`${apiURL}/playlist`, {
       method: 'POST',

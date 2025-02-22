@@ -6,7 +6,6 @@ import { forwardRef, useState } from 'react';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { DialogContent, IconButton, List, ListItemButton, ListItemText, Slide } from '@mui/material';
 import QueueIcon from '@mui/icons-material/Queue';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import AlbumIcon from '@mui/icons-material/Album';
 import InterpreterModeIcon from '@mui/icons-material/InterpreterMode';
 import { useAuthStore } from '@/app/store/useAuthStore';
@@ -14,6 +13,8 @@ import Link from 'next/link';
 import { usePLayerStore } from '@/app/store/usePlayerStore';
 import { Song } from '@/app/lib/definitions';
 import AddToPlaylist from './AddToPlaylist';
+import { RemoveSongFromPlaylist } from '@/app/lib/actions/serverActions/putActions';
+import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -27,11 +28,14 @@ const Transition = forwardRef(function Transition(
 
 interface SongOptionsDialogProps {
   song: Song
+  removePlaylist?: boolean
+  playlistId?: string
+  mutate?: ()=> void
 }
 
 
 
-export default function SongOptionsDialog({song}:SongOptionsDialogProps) {
+export default function SongOptionsDialog({song, removePlaylist, playlistId, mutate}:SongOptionsDialogProps) {
   const [open, setOpen] = useState(false);
   const {isAuthenticated} = useAuthStore();
   const {addToQueue} = usePLayerStore()
@@ -49,6 +53,22 @@ export default function SongOptionsDialog({song}:SongOptionsDialogProps) {
     setOpen(false);
   };
 
+  const handleDeleteFromPlaylist = async () => {
+    try {
+      if(!playlistId || !mutate) return
+      const response = await RemoveSongFromPlaylist(song.id, playlistId)
+      if(response.success) {
+        mutate()
+        handleClose()
+      }
+      
+    } catch  {
+      handleClose()
+      
+    }
+
+  }
+
   return (
     <>
       <IconButton sx={{ position:'absolute', right:0, marginRight:2, zIndex:0}} size='small' color='info' onClick={handleClickOpen} >
@@ -63,16 +83,12 @@ export default function SongOptionsDialog({song}:SongOptionsDialogProps) {
       >
         <DialogContent sx={{background:'#010101'}}>
          <List sx={{background:'#010101'}}>
-         {isAuthenticated && (
-          <>
-            <ListItemButton >
-            <FavoriteIcon/>
-            <ListItemText sx={{marginLeft:'10px'}}>Remove from favorites</ListItemText>
-          </ListItemButton>
-          <ListItemButton onClick={handleAddToQueue} >
+         <ListItemButton onClick={handleAddToQueue} >
             <QueueIcon/>
             <ListItemText sx={{marginLeft:'10px'}}>Play Next</ListItemText>
           </ListItemButton>
+         {isAuthenticated && (
+          <>
           <AddToPlaylist song={song}/>
           </>
          )}
@@ -85,6 +101,13 @@ export default function SongOptionsDialog({song}:SongOptionsDialogProps) {
             <AlbumIcon/>
             <ListItemText sx={{marginLeft:'10px'}}>Go to album page</ListItemText>
           </ListItemButton>
+
+          {removePlaylist &&(
+          <ListItemButton onClick={handleDeleteFromPlaylist} >
+            <ClearRoundedIcon/>
+            <ListItemText sx={{marginLeft:'10px'}}>Remove from playlist</ListItemText>
+          </ListItemButton>
+          )}
          </List>
         </DialogContent>
     

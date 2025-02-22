@@ -82,7 +82,6 @@ return (
                 <MiniArtistComponent key={artist.id} artist={artist}/>
               ))}
             </div>
-            <p className="text-xl mb-5">Top Playlists</p>
           </List>
         </Box>
 

@@ -34,7 +34,7 @@ export default function AlbumMainComponent({id}:AlbumProps) {
 
   if(error){
     return (
-      <div>
+      <div className="w-full flex flex-col h-screen items-center pt-40"> 
         <h1>An error happened</h1>
       </div>
     )
@@ -42,7 +42,7 @@ export default function AlbumMainComponent({id}:AlbumProps) {
 
   if(isLoading){
     return (
-      <div>
+      <div className="w-full flex flex-col h-screen items-center pt-40">
         <CircularProgress/>
       </div>
     )

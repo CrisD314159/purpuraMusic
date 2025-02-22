@@ -13,6 +13,8 @@ import Image from 'next/image';
 import { Vibrant } from 'node-vibrant/browser';
 import PlaylistSongsContainer from './PlaylistSongsContainer';
 import PlaylistSongList from './PlaylistSongList';
+import UpdatePlaylistDialog from '../UpdatePlaylistDialog';
+import DeletePlaylistDialog from './DeletePlaylistDialog';
 
 
 const Transition = forwardRef(function Transition(
@@ -27,9 +29,10 @@ const Transition = forwardRef(function Transition(
 
 interface PlaylistComponent{
   playlist: Playlist
+  mutate: ()=> void
 }
 
-export default function PlayListDialogComponent({playlist}:PlaylistComponent) {
+export default function PlayListDialogComponent({playlist, mutate}:PlaylistComponent) {
   const [open, setOpen] = useState(false);
   const [color, setColor] = useState('#010101');
 
@@ -51,6 +54,11 @@ export default function PlayListDialogComponent({playlist}:PlaylistComponent) {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const handleMutate = () =>{
+    mutate()
+    handleClose()
+  }
 
   return (
     <>
@@ -80,6 +88,8 @@ export default function PlayListDialogComponent({playlist}:PlaylistComponent) {
               top: 0,
               width: "100%",
               zIndex: 999,
+              display: "flex",
+              justifyContent: "space-between",
               boxShadow: "0 4px 30px rgba(25, 25, 25, 0.5)",
               backdropFilter: "blur(15px)",
             }}
@@ -87,6 +97,10 @@ export default function PlayListDialogComponent({playlist}:PlaylistComponent) {
             <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
               <ArrowBackIosNewRoundedIcon />
             </IconButton>
+            <div className='flex gap-6'>
+              <UpdatePlaylistDialog props={{mutate: handleMutate, playlist:playlist, setClose:handleClose}}/>
+              <DeletePlaylistDialog mutate={handleMutate} playlistId={playlist.id} setClose={handleClose}/>
+            </div>
           </Toolbar>
 
           {/* Contenedor flexible con scroll */}
@@ -100,12 +114,14 @@ export default function PlayListDialogComponent({playlist}:PlaylistComponent) {
               }}
             >
               <div
-                className="flex justify-center linearBox rounded-xl"
+                className="flex justify-center rounded-xl"
                 style={{ boxShadow: `3px 3px 50px 15px ${color}` }}
               >
                 <Image src={playlist.imageUrl ?? ""} width={200} height={200} alt='data Image' unoptimized/>
                 
+                
               </div>
+              <p className='mt-5 text-xl font-bold '>{playlist.name}</p>
               {
                 playlist && (playlist.songs?.length ?? 0) > 0 ?
                 <PlaylistSongList initialSongs={playlist.songs ?? []}  color={color}/>

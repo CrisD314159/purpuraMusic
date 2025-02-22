@@ -1,6 +1,7 @@
 'use server'
 import { cookies } from "next/headers";
 import { apiURL } from "../../definitions";
+import { checkIsloggedIn } from "../../authChecks";
 
 
 export interface UploadResponse {
@@ -10,6 +11,7 @@ export interface UploadResponse {
 }
 
 export async function ImageUpload(image:File | null){
+  await checkIsloggedIn()
   const token = (await cookies()).get('token')?.value
   if(!image){
     return

@@ -67,7 +67,7 @@ export default function SignupForm(){
       </div>
            
         
-        <CountrySelect setCountry={setCountry}/>
+        <CountrySelect setCountry={setCountry} defaultValue={1}/>
 
 
 

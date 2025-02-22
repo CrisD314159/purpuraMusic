@@ -2,11 +2,13 @@
 
 import { cookies } from "next/headers"
 import { apiURL, isNullOrEmpty } from "../../definitions"
+import { checkIsloggedIn } from "../../authChecks"
 
 
 export async function GetUserFavorites(offset:number, limit:number)
 {
   try {
+    await checkIsloggedIn()
     const token = (await cookies()).get('token')?.value
     const response = await fetch(`${apiURL}/library/user/songs?offset=${offset}&limit=${limit}`, {
       headers:{
@@ -29,6 +31,7 @@ export async function GetUserFavorites(offset:number, limit:number)
 }
 export async function GetUserSearchResults(search:string)
 {
+  await checkIsloggedIn()
   if(isNullOrEmpty(search)) return
   try {
     const token = (await cookies()).get('token')?.value
@@ -63,6 +66,7 @@ export async function GetUserSearchResults(search:string)
 
 export async function GetPlaylistSongs(id:string)
 {
+  await checkIsloggedIn()
   if(isNullOrEmpty(id)) return
   try {
     const token = (await cookies()).get('token')?.value
@@ -87,10 +91,18 @@ export async function GetPlaylistSongs(id:string)
 
 export async function GetArtistPage(id:string)
 {
+  await checkIsloggedIn()
   if(isNullOrEmpty(id)) return
   try {
-
-    const response = await fetch(`${apiURL}/artist/getArtistProfile/${id}`)
+    const token = (await cookies()).get('token')?.value
+    const response = await fetch(`${apiURL}/artist/getArtistProfile/${id}`,
+      {
+        method:'GET',
+        headers:{
+          "Authorization": `Bearer ${token}`
+        }
+      }
+    )
     
     if(response.status === 200){
       const artist = await response.json()
@@ -107,10 +119,19 @@ export async function GetArtistPage(id:string)
 
 export async function GetAlbumPage(id:string)
 {
+  await checkIsloggedIn()
   if(isNullOrEmpty(id)) return
   try {
+    const token = (await cookies()).get('token')?.value
 
-    const response = await fetch(`${apiURL}/album/getAlbum/${id}`)
+    const response = await fetch(`${apiURL}/album/getAlbum/${id}`,
+      {
+        method:'GET',
+        headers:{
+          "Authorization": `Bearer ${token}`
+        }
+      }
+    )
     
     if(response.status === 200){
       const album = await response.json()
@@ -126,6 +147,7 @@ export async function GetAlbumPage(id:string)
 }
 export async function GetTopAlbums()
 {
+  await checkIsloggedIn()
   try {
     const response = await fetch(`${apiURL}/album/getTopAlbums`)
     
@@ -142,10 +164,20 @@ export async function GetTopAlbums()
   }
 }
 
+
 export async function GetTopSongs()
 {
+  await checkIsloggedIn()
   try {
-    const response = await fetch(`${apiURL}/song/getTopSongs`)
+    const token = (await cookies()).get('token')?.value
+    const response = await fetch(`${apiURL}/song/getTopSongs`,
+      {
+        method:'GET',
+        headers:{
+          "Authorization": `Bearer ${token}`
+        }
+      }
+    )
     
     if(response.status === 200){
       const songs = await response.json()
@@ -165,6 +197,7 @@ export async function GetTopSongs()
 export async function GetPurpleDaylist()
 {
   try {
+    await checkIsloggedIn()
     const token = (await cookies()).get('token')?.value 
     const response = await fetch(`${apiURL}/purpleDaylist/gerPurpleDaylist`, {
       headers:{

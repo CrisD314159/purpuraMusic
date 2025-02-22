@@ -1,6 +1,7 @@
 'use server'
 import { apiURL } from "@/app/lib/definitions";
 import { cookies } from "next/headers";
+import { checkIsloggedIn } from "../../authChecks";
 
 
 
@@ -17,6 +18,7 @@ export async function GetCountries(){
 
 export async function GetUserAccount(){
   try {
+    await checkIsloggedIn()
     const token = (await cookies()).get('token')?.value
     const response = await fetch(`${apiURL}/user/getProfile`, {
       method: 'GET',
@@ -39,6 +41,7 @@ export async function GetUserAccount(){
 
 export async function GetUserPlaylists(){
   try {
+    await checkIsloggedIn()
     const token = (await cookies()).get('token')?.value
     const response = await fetch(`${apiURL}/playlist/getPlaylists/user`, {
       method: 'GET',

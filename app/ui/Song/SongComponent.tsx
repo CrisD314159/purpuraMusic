@@ -11,9 +11,12 @@ type SongProps = {
   handlePLaySong: (index:number)=> void
   index:number
   notShowArtist?: boolean
+  removePlaylist?: boolean
+  playlistId?: string
+  mutate?: ()=> void
 }
 
-export default function SongComponent({ song, current, handlePLaySong, index, notShowArtist}: SongProps) {
+export default function SongComponent({ song, current, handlePLaySong, index, notShowArtist, removePlaylist, playlistId, mutate}: SongProps) {
 
   return (
     <div  className='rounded-xl bg-neutral-900 w-full flex gap-4 items-center mb-5 relative'>
@@ -40,7 +43,7 @@ export default function SongComponent({ song, current, handlePLaySong, index, no
           )
         }
       </Button>
-      <SongOptionsDialog song={song}/>
+      <SongOptionsDialog mutate={mutate} removePlaylist={removePlaylist} playlistId={playlistId} song={song}/>
       
     </div>
   )
