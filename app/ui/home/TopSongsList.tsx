@@ -30,8 +30,16 @@ export default function TopSongsList() {
     <div className="w-full flex flex-col mt-10 gap-3 px-3">
       <h1 className="text-2xl">Top Songs for you</h1>
       <List sx={{width:'100%', overflowX:'auto', display:'flex', gap:10}}>
-        {error && <p>An error occurred while fetching the songs</p>}
-        {isLoading && <CircularProgress />}
+        {error && (
+          <div className="w-full flex justify-center items-center">
+            <p>An error occurred while fetching the songs</p>
+          </div>
+        )}
+        {isLoading && (
+          <div className="w-full flex justify-center items-center">
+          <CircularProgress />
+        </div>
+        )}
         {data && 
         data.map((song, index)=>{
            const isCurrent = currentSong?.id === song.id

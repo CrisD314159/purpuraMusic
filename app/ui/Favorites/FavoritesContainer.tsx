@@ -39,7 +39,13 @@ export default function FavoritesContainer({ open }: FavoritesContainerProps) {
       <IconButton onClick={() => mutate(undefined, true)} disabled={isLoading} sx={{ position:'absolute', top:240, right:'5%'}}>
         <RefreshIcon />
       </IconButton>
-      <FavoritesList initialSongs={data?.songs ?? []} />
+      {data?.songs.length > 0 ?
+        <FavoritesList initialSongs={data?.songs ?? []} />
+        :
+        <p style={{marginTop:5}}>
+          You do not have any favorite songs yet
+        </p>
+      }
     </>
   );
 }

@@ -36,7 +36,7 @@ export default function PlaylistSongsContainer({id, color, open}:PlaylistContain
 
   return (
   <>
-   <IconButton onClick={() => mutate(undefined, true)} disabled={isLoading} sx={{ position:'absolute', top:240, right:'5%'}}>
+   <IconButton onClick={() => mutate(undefined, true)} disabled={isLoading} sx={{ position:'absolute', top:250, right:'5%'}}>
       <RefreshIcon />
    </IconButton>
     <PlaylistSongList mutate={handleMutate} removePlaylist={true} playlistId={id} initialSongs={data.songs} color={color} />

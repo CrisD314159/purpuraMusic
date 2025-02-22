@@ -17,8 +17,16 @@ export default function TopAlbumsList() {
     <div className="w-full flex flex-col mt-5 gap-3 px-3">
       <h1 className="text-2xl">Top Albums for you</h1>
       <List sx={{width:'100%', overflowX:'auto', display:'flex', gap:3}}>
-        {error && <p>An error occurred while fetching the albums</p>}
-        {isLoading && <CircularProgress />}
+        {error && (
+          <div className="w-full flex justify-center items-center">
+            <p>An error occurred while fetching the albums</p>
+          </div>
+        )}
+        {isLoading && (
+          <div className="w-full flex justify-center items-center">
+            <CircularProgress />
+          </div>
+        )}
         {data && 
         data.map((album)=>{
           return (

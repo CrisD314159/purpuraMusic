@@ -16,7 +16,6 @@ import SkipNextRoundedIcon from '@mui/icons-material/SkipNextRounded';
 import ShuffleRoundedIcon from '@mui/icons-material/ShuffleRounded';
 import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
 import PauseRoundedIcon from '@mui/icons-material/PauseRounded';
-import QueueMusicRoundedIcon from '@mui/icons-material/QueueMusicRounded';
 import VolumeUpRoundedIcon from '@mui/icons-material/VolumeUpRounded';
 import { MiniPlayerControls } from './MiniPlayerControls';
 import VolumeDownIcon from '@mui/icons-material/VolumeDown';
@@ -231,11 +230,6 @@ export default function PlayerDialog() {
                   )}
                 </IconButton>
 
-                {isAuthenticated && (
-                  <IconButton>
-                    <QueueMusicRoundedIcon />
-                  </IconButton>
-                )}
               </div>
 
               <div className="flex items-center gap-2 w-full">

@@ -25,13 +25,19 @@ export default function PlayListsList() {
 
   if(error) return <div>Error</div>
 
+  if(data?.length === 0) return <div>
+     <CreatePlaylistDialog props={{mutate}}/>
+    <p className='mt-6'>  No playlists</p>
+    </div>
+
   return (
     <Box
       sx={{ width: '100%', height: 400, bgcolor: '#010101', marginTop:3 }}
     >
       <CreatePlaylistDialog props={{mutate}}/>
       <List sx={{overflowX: 'auto', display:'flex', flexDirection:'row', width:'100%', '&::-webkit-scrollbar': { display: 'none' }}}>
-        {data?.map((playlist)=>{
+        {data &&
+        data?.map((playlist)=>{
           return (
             <PlayListDialogComponent mutate={mutate} key={playlist.id} playlist={playlist}/> 
           )

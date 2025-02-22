@@ -70,7 +70,7 @@ export type EditAccountFormState =
     }
   | undefined
 
-export const apiURL = 'http://localhost:5188'
+export const apiURL = process.env.API_URL
 
 
 export interface ApiLoginResponse {

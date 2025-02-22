@@ -1,9 +1,9 @@
 import { GetPurpleDaylist } from "@/app/lib/actions/serverActions/getActions"
 import { CircularProgress } from "@mui/material"
 import useSWR from "swr"
-import PlayListDialogComponent from "../Playlists/PlayListDialog/PlayListDialogComponent"
 import { Playlist } from "@/app/lib/definitions"
 import "@/app/css/linearGradientAnimation.css"
+import PurplePlayListDialog from "../PurplePlaylist/PurplePlayListDialog"
 
 const fecher = async()=>{
   const response = await GetPurpleDaylist()
@@ -19,7 +19,7 @@ export default function PurpleDaylistComponent() {
       {error && <p>An error occurred while fetching the purple daylist</p>}
       {isLoading && <CircularProgress/>}
       {data && 
-        <PlayListDialogComponent playlist={data}/>
+        <PurplePlayListDialog playlist={data}/>
       }
     </div>
   )
