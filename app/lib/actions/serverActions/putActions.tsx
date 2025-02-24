@@ -118,7 +118,6 @@ export async function RemoveSongFromPlaylist(songId:string, playlistId:string){
       body:JSON.stringify({songId, playlistId})
     })
 
-    console.log(response.status);
 
     if(response.ok){
       return {

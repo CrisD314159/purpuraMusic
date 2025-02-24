@@ -17,7 +17,6 @@ export async function DeletePlaylist(id:string)
       body:JSON.stringify({id})
     })
 
-    console.log(response.status);
 
     if(response.status === 200){
     

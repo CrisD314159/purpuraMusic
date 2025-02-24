@@ -7,7 +7,7 @@ import CountrySelect from "../Selects/CountrySelect";
 
 export default function SignupForm(){
   const [state, action, pending] = useActionState(SignUp, undefined)
-  const [country, setCountry] = useState(0)
+  const [country, setCountry] = useState(1)
   console.log(country);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -67,7 +67,7 @@ export default function SignupForm(){
       </div>
            
         
-        <CountrySelect setCountry={setCountry} defaultValue={1}/>
+        <CountrySelect setCountry={setCountry} defaultValue={country}/>
 
 
 
