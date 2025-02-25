@@ -125,15 +125,12 @@ export async function SendRecoverEmail(state: FormState, formdata: FormData){
       }
       
     }else{
-      const {message} = await response.json()
-      return {
-        message
-      }
+      throw new Error('An error occurred while trying to send the email')
      
     }
   } catch {
     return {
-      message:"An error occurred while trying to verify your account"
+      message:"An error occurred while trying to send the email"
     }  
   }
 }
@@ -167,11 +164,7 @@ export async function ChangePassword(state: FormState, formdata: FormData){
       }
       
     }else{
-      const {message} = await response.json()
-      return {
-        message
-      }
-     
+     throw new Error('An error occurred while trying to change the password')
     }
   } catch {
     return {
@@ -181,11 +174,10 @@ export async function ChangePassword(state: FormState, formdata: FormData){
 }
 
 export async function Logout() {
-  const response = await LogoutRequest()
-  if(response){
+  await LogoutRequest()
     deleteSession()
     redirect('/')
-  }
+  
 }
 
 
