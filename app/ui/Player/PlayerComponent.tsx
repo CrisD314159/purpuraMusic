@@ -30,6 +30,11 @@ export default function PlayerComponent() {
       navigator.mediaSession.setActionHandler("previoustrack", () => {
         if(audioRef.current && audioRef.current.currentTime < 4){
           playPrevious()
+          setTimeout(() => {
+            if (audioRef.current) {
+              audioRef.current.play().catch(err => console.error("Error al reproducir la canción anterior:", err));
+            }
+          }, 100);
         }else{
           handleSeek([0])
         }
@@ -38,6 +43,11 @@ export default function PlayerComponent() {
       navigator.mediaSession.setActionHandler("nexttrack", () => {
         playNext()
         //  ir a la siguiente canción
+        setTimeout(() => {
+          if (audioRef.current) {
+            audioRef.current.play().catch(err => console.error("Error al reproducir la siguiente canción:", err));
+          }
+        }, 100);
       });
     }
   }, [currentSong, playNext, playPrevious, togglePlay]);
