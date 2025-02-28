@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Púrpura Music Admin',
+    name: 'Púrpura Music',
     short_name: 'Púrpura Music',
     description: 'Púrpura Music PWA Application',
     start_url: '/',
