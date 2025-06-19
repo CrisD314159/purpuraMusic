@@ -1,19 +1,27 @@
 'use client'
 import { Button, TextField } from "@mui/material";
 import { startTransition, useActionState, useEffect, useState } from "react";
-import { ChangePassword } from "../lib/actions/serverActions/auth";
-import SuccessSnackBar from "../ui/Snackbars/SuccessSnackBar";
+import { ChangePassword } from "../../lib/auth/Auth";
 import Link from "next/link";
+import AppSnackBar from "../../ui/Snackbars/AppSnackBar";
 
 export default function ChangePasswordPage() {
   const [state, action, pending] = useActionState(ChangePassword, undefined)
-  const [open, setOpen] = useState(false)
+    const [snackbar, setSnackbar] = useState(false)
+    const [snackbarMessage, setSnackbarMessage] = useState('')
+    const [snackbarType, setSnackbarType] = useState<'error' | 'success'>('error')
 
-  useEffect(()=>{
-    if(state?.success){
-      setOpen(true)
-    }
-  }, [state?.success])
+    useEffect(()=>{
+      if(state?.success){
+        setSnackbar(true)
+        setSnackbarMessage(state.message)
+        setSnackbarType('success')
+      } else if(state?.success === false){
+        setSnackbar(true)
+        setSnackbarMessage(state.message)
+        setSnackbarType('error')
+      }
+    }, [state])
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>)=>{
     event.preventDefault()
@@ -43,7 +51,7 @@ export default function ChangePasswordPage() {
           />
           {state?.message && <p className="text-red-500">{state.message}</p>}
  
-          <SuccessSnackBar message="Email sent" open={open} setOpen={setOpen} />
+          <AppSnackBar message={snackbarMessage} open={snackbar} setOpen={setSnackbar} type={snackbarType} />
           
         </div>
         {state?.success ? <Button LinkComponent={Link} href="/" variant="contained" color="success">Login</Button> :

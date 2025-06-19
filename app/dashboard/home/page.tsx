@@ -1,11 +1,11 @@
 'use client'
 import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
-import '@/app/css/linearGradientAnimation.css'
-import TopAlbumsList from "@/app/ui/home/TopAlbumsList";
-import TopSongsList from "@/app/ui/home/TopSongsList";
-import { useAuthStore } from "@/app/store/useAuthStore";
-import PurpleDaylistComponent from "@/app/ui/home/PurpleDaylistComponent";
+import '@/css/linearGradientAnimation.css'
+import TopAlbumsList from "@/ui/home/TopAlbumsList";
+import TopSongsList from "@/ui/home/TopSongsList";
+import { useAuthStore } from "@/store/useAuthStore";
+import PurpleDaylistComponent from "@/ui/home/PurpleDaylistComponent";
 
 export default function Homepage(){
   const [greeting, setGreeting] = useState<string>("Good Day");
@@ -44,9 +44,9 @@ export default function Homepage(){
           <div className={`w-full ${color} h-28 px-5 flex items-center justify-center`}>
             <h1 className="font-light text-[25px] sm:text-[35px] font-[Montserrat]">{`${greeting}, it's great to see you again`}</h1>
           </div>
-          <TopAlbumsList/>
-          <TopSongsList/>
           {isAuthenticated && <PurpleDaylistComponent/>}
+          <TopSongsList/>
+          <TopAlbumsList/>
 
          </Box>
         

@@ -1,7 +1,7 @@
 'use client'
 
-import { GetUserAccount } from "@/app/lib/actions/requests/getRequests";
-import EditAccountDialog from "@/app/ui/Dialog/EditAccountDialog";
+import { GetUserProfile } from "@/lib/serverActions/GetActions";
+import EditAccountDialog from "@/ui/Dialog/EditAccountDialog";
 import { Avatar, CircularProgress, Typography, Box, Chip } from "@mui/material";
 import { useEffect, useState } from "react";
 
@@ -11,16 +11,13 @@ import useSWR from "swr";
 interface UserAccount {
   id: string;
   email: string;
-  firstName: string;
-  surName: string;
-  country: string;
-  countryId: number;
+  name: string;
   profilePicture: string;
   isVerified: boolean;
 }
 
 export default function AccountPage() {
-  const { data, error, isLoading, mutate } = useSWR<UserAccount>('userData', GetUserAccount);
+  const { data, error, isLoading, mutate } = useSWR<UserAccount>('userData', GetUserProfile);
   const [reload, setReload] = useState(false);
 
 
@@ -58,7 +55,7 @@ export default function AccountPage() {
     >
       <Avatar
         src={data?.profilePicture}
-        alt={`${data?.firstName} ${data?.surName}`}
+        alt={`${data?.name}`}
         sx={{
           width: 250,
           height: 250,
@@ -69,7 +66,7 @@ export default function AccountPage() {
       />
 
       <Typography variant="h4" fontWeight="bold" style={{ fontSize: "2rem" }}>
-        {data?.firstName} {data?.surName}
+        {data?.name}
       </Typography>
 
       <Typography variant="subtitle1" style={{ fontSize: "1.2rem", opacity: 0.8 }}>
@@ -87,14 +84,8 @@ export default function AccountPage() {
         }}
       />
 
-      <Box mt={4} textAlign="center">
-        <Typography variant="h6" style={{ fontSize: "1.2rem" }}>
-          <strong>Country:</strong> {data?.country}
-        </Typography>
-      </Box>
-
         <Box mt={4} textAlign="center">
-          <EditAccountDialog setReload={setReload} initialCountry={data?.countryId ?? 0} initialFirstName={data?.firstName ?? ""} initialSurName={data?.surName ?? ""}/>
+          <EditAccountDialog setReload={setReload} name={data?.name ?? ""}/>
         </Box>
     </div>
   );

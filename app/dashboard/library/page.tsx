@@ -1,10 +1,10 @@
 'use client'
-import '@/app/css/glassEffect.css'
-import { useAuthStore } from '@/app/store/useAuthStore'
-import LibraryListComponent from '@/app/ui/Library/LibraryListComponent'
+import '@/css/glassEffect.css'
+import { useAuthStore } from '@/store/useAuthStore' 
+import LibraryListComponent from '@/ui/Library/LibraryListComponent'
 import { Box, Button } from '@mui/material'
 import Link from 'next/link'
-import '@/app/css/linearGradientAnimation.css'
+import '@/css/linearGradientAnimation.css'
 
 export default function LibraryPage(){
   const {isAuthenticated} = useAuthStore()

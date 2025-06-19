@@ -4,7 +4,7 @@ import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 
 import "./globals.css";
 import { ThemeProvider } from "@mui/material";
-import theme from "./lib/theme/theme";
+import theme from "../lib/theme/theme";
 import Head from "next/head";
 
 
