@@ -35,7 +35,7 @@ export default function SongComponent({ song, current, handlePLaySong, index, no
             <div className=" absolute sm:left-1/2 left-[73%] flex-col hidden sm:block">
             {song.artists.map((artist)=>{
                   return (
-                    <p className="text-xs" key={artist.id}>{artist.name} </p>
+                    <p className="text-xs text-zinc-100" key={artist.id}>{artist.name} </p>
                   )
                 })}
             </div>
