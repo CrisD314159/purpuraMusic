@@ -35,7 +35,6 @@ export async function ImageUpload(image:File | null){
     throw new Error("An error occurred while connecting to server")    
   }
 
-  console.log(response.status);
   if(response.status === 200){
     const {url} = await response.json()
     return url

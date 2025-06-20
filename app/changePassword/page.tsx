@@ -4,12 +4,15 @@ import { startTransition, useActionState, useEffect, useState } from "react";
 import { ChangePassword } from "../../lib/auth/Auth";
 import Link from "next/link";
 import AppSnackBar from "../../ui/Snackbars/AppSnackBar";
+import { useSearchParams } from "next/navigation";
 
 export default function ChangePasswordPage() {
+  const searchParams = useSearchParams()
+  const token = searchParams.get('token')
   const [state, action, pending] = useActionState(ChangePassword, undefined)
-    const [snackbar, setSnackbar] = useState(false)
-    const [snackbarMessage, setSnackbarMessage] = useState('')
-    const [snackbarType, setSnackbarType] = useState<'error' | 'success'>('error')
+  const [snackbar, setSnackbar] = useState(false)
+  const [snackbarMessage, setSnackbarMessage] = useState('')
+  const [snackbarType, setSnackbarType] = useState<'error' | 'success'>('error')
 
     useEffect(()=>{
       if(state?.success){
@@ -26,6 +29,7 @@ export default function ChangePasswordPage() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>)=>{
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
+    formData.append('code', token ?? "No token provided")
 
     startTransition(()=>{
       action(formData)
@@ -36,7 +40,6 @@ export default function ChangePasswordPage() {
         <h1 className="text-2xl">Recover your account on Púrpura Music</h1>
         <div className="flex flex-col space-y-4 my-7 w-4/5">
           <TextField label="Email" disabled={pending} type="email" name="email" required variant="outlined" />
-          <TextField label="Verification code" disabled={pending} name="code" required variant="outlined" />
           <TextField
             label="New Password"
             required

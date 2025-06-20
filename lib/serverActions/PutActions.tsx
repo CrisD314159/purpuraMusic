@@ -93,8 +93,6 @@ export async function AddSongToPlaylist(songId:string, playlistId:string){
       },
       body:JSON.stringify({songId, playlistId})
     })
-
-  console.log(response.status);
   if(response.status === 200){
     return {
       success: true,

@@ -75,7 +75,6 @@ export async function AddPlay(songId:string){
       },
       body:JSON.stringify({songId})
     })
-    console.log(response.status);
     if(response.status === 200){
       return true
     } else{

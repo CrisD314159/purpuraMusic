@@ -13,7 +13,6 @@ export default function TopSongsList() {
 
   const fetcher = async () => {
     const response = await GetTopSongs();
-    console.log(response);
     return response;
   };
 

@@ -143,12 +143,14 @@ export default function PlayerComponent() {
                   <div className="flex-1 flex items-center justify-between w-[75%] mt-2">
                     <div style={{ width: '65%' }}>
                       <div className="font-medium text-xl truncate">{song.name}</div>
-                      <div className="w-52 text-base text-zinc-200 truncate cursor-pointer">
+                      <div className="w-52 text-base text-zinc-200 truncate">
                         {song.artists.map((artist) => artist.name).join(", ")}
                       </div>
                     </div>
-                    {isAuthenticated && <SongAddRemoveComponent />}
-                    <DisclaimerDialog message={song.disclaimer}/>
+                    <div>
+                      {isAuthenticated && <SongAddRemoveComponent />}
+                      <DisclaimerDialog message={song.disclaimer}/>
+                    </div>
                   </div>
                 
             </div>

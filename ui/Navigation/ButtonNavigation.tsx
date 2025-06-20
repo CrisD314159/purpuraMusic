@@ -29,7 +29,8 @@ export default function ButtonNavigation() {
         <BottomNavigationAction
           label="Home"
           showLabel={false}
-          icon={<HomeRoundedIcon />}
+          icon={<HomeRoundedIcon/>}
+          
           component={Link}
           href="/dashboard/home"
         />

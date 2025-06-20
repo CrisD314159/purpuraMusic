@@ -66,7 +66,6 @@ const handlePlaySong = async (index: number, song:Song)=>{
 
   useEffect(() => {
     if (inView && !isLoadingMore) {
-      console.log("hola");
       loadMoreSongs()
     }
   }, [inView, isLoadingMore])
