@@ -52,9 +52,7 @@ export default function SignupForm(){
 
      
       <div className="flex  items-center justify-center space-x-4 w-4/5">
-        <TextField required label="Username" type="text" color="secondary" slotProps={{htmlInput:{maxLength:20, minLength:2}}} name="firstname" 
-        variant="outlined" error={!!state?.errors?.name}
-         helperText={state?.errors?.email && <p>{state.errors.email}</p>}
+        <TextField required label="Username" type="text" color="secondary" slotProps={{htmlInput:{maxLength:30, minLength:2}}} name="name" 
         onKeyDown={(e)=> {
           if(e.key === ' ') e.preventDefault()
         }}

@@ -7,7 +7,7 @@ export const LoginFormSchema = z.object({
     .trim(),
 })
 export const SignUpFormSchema = z.object({
-  name :z.string().min(3).max(30),
+  name :z.string().min(3).max(30).trim(),
   email: z.string().email({ message: 'Please enter a valid email.' }).trim(),
   password: z
     .string({message: 'Password must be at least 8 characters long, include at least one uppercase letter, one lowercase letter, one number, and one special character (@$!%*-?&).'})
