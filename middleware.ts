@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { checkIsloggedIn } from './app/lib/authChecks';
+import { checkIsloggedIn } from './lib/auth/authChecks';
 
  
 // 1. Specify protected and public routes

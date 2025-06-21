@@ -1,15 +1,15 @@
 'use client'
-import { GetUserSearchResults } from "@/app/lib/actions/serverActions/getActions";
-import { Artist, Playlist, Song } from "@/app/lib/definitions";
-import { usePLayerStore } from "@/app/store/usePlayerStore";
-import MiniArtistComponent from "@/app/ui/Artist/MiniArtistComponent";
-import SearchInput from "@/app/ui/Search/SearchInput";
-import SongComponent from "@/app/ui/Song/SongComponent";
+import { GetUserSearchResults } from "@/lib/serverActions/GetActions";
+import { Artist, Playlist, Song } from "@/lib/definitions/definitions";
+import { usePLayerStore } from "@/store/usePlayerStore";
+import MiniArtistComponent from "@/ui/Artist/MiniArtistComponent";
+import SearchInput from "@/ui/Search/SearchInput";
+import SongComponent from "@/ui/Song/SongComponent";
 import { Box, CircularProgress, List } from "@mui/material";
-import Image from "next/image";
 import { useState } from "react";
 import useSWR from "swr";
 import { useDebouncedCallback } from 'use-debounce';
+import GenresViewComponent from "@/ui/Genre/GenresViewComponent";
 
 interface DataType {
   songs: Song[];
@@ -87,13 +87,7 @@ return (
 
      </Box>
     ) : (
-      <Image
-        src="/purpura-vanish.png"
-        alt="search"
-        width={250}
-        height={250}
-        style={{ position: "absolute", top: "30%" }}
-      />
+      <GenresViewComponent/>
     )}
   </div>
 );

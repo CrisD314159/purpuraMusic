@@ -1,18 +1,26 @@
 'use client'
 import { Button, TextField } from "@mui/material";
 import { startTransition, useActionState, useEffect, useState } from "react";
-import { SendRecoverEmail } from "../lib/actions/serverActions/auth";
-import SuccessSnackBar from "../ui/Snackbars/SuccessSnackBar";
+import { SendRecoverEmail } from "../../lib/auth/Auth";
+import AppSnackBar from "../../ui/Snackbars/AppSnackBar";
 
 export default function RecoveryPage() {
   const [state, action, pending] = useActionState(SendRecoverEmail, undefined)
-  const [open, setOpen] = useState(false)
+  const [snackbar, setSnackbar] = useState(false)
+  const [snackbarMessage, setSnackbarMessage] = useState('')
+  const [snackbarType, setSnackbarType] = useState<'error' | 'success'>('error')
 
   useEffect(()=>{
     if(state?.success){
-      setOpen(true)
+      setSnackbar(true)
+      setSnackbarMessage(state.message)
+      setSnackbarType('success')
+    } else if(state?.success === false){
+      setSnackbar(true)
+      setSnackbarMessage(state.message)
+      setSnackbarType('error')
     }
-  }, [state?.success])
+  }, [state])
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>)=>{
     event.preventDefault()
@@ -24,12 +32,12 @@ export default function RecoveryPage() {
   }
     return (
       <form onSubmit={handleSubmit} className="w-96 p-10 rounded-lg flex flex-col items-center justify-center bg-neutral-900" style={{ boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.75)" }}>
+        <AppSnackBar message={snackbarMessage} open={snackbar} setOpen={setSnackbar} type={snackbarType} />
         <h1 className="text-2xl">Recover your account on Púrpura Music</h1>
         <div className="flex flex-col space-y-4 my-7 w-4/5">
           <TextField label="Email" disabled={pending} type="email" name="email" required variant="outlined" />
           {state?.message && <p className="text-red-500">{state.message}</p>}
  
-          <SuccessSnackBar message="Email sent" open={open} setOpen={setOpen} />
           
         </div>
         {state?.success ? <Button variant="contained" color="success">Email Sent</Button> :

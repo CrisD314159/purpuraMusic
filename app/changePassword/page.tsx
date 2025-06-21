@@ -1,23 +1,35 @@
 'use client'
-import { Button, TextField } from "@mui/material";
-import { startTransition, useActionState, useEffect, useState } from "react";
-import { ChangePassword } from "../lib/actions/serverActions/auth";
-import SuccessSnackBar from "../ui/Snackbars/SuccessSnackBar";
+import { Button, CircularProgress, TextField } from "@mui/material";
+import { startTransition, Suspense, useActionState, useEffect, useState } from "react";
+import { ChangePassword } from "../../lib/auth/Auth";
 import Link from "next/link";
+import AppSnackBar from "../../ui/Snackbars/AppSnackBar";
+import { useSearchParams } from "next/navigation";
 
-export default function ChangePasswordPage() {
+function ChangePasswordPage() {
+  const searchParams = useSearchParams()
+  const token = searchParams.get('token')
   const [state, action, pending] = useActionState(ChangePassword, undefined)
-  const [open, setOpen] = useState(false)
+  const [snackbar, setSnackbar] = useState(false)
+  const [snackbarMessage, setSnackbarMessage] = useState('')
+  const [snackbarType, setSnackbarType] = useState<'error' | 'success'>('error')
 
-  useEffect(()=>{
-    if(state?.success){
-      setOpen(true)
-    }
-  }, [state?.success])
+    useEffect(()=>{
+      if(state?.success){
+        setSnackbar(true)
+        setSnackbarMessage(state.message)
+        setSnackbarType('success')
+      } else if(state?.success === false){
+        setSnackbar(true)
+        setSnackbarMessage(state.message)
+        setSnackbarType('error')
+      }
+    }, [state])
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>)=>{
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
+    formData.append('code', token ?? "No token provided")
 
     startTransition(()=>{
       action(formData)
@@ -28,7 +40,6 @@ export default function ChangePasswordPage() {
         <h1 className="text-2xl">Recover your account on Púrpura Music</h1>
         <div className="flex flex-col space-y-4 my-7 w-4/5">
           <TextField label="Email" disabled={pending} type="email" name="email" required variant="outlined" />
-          <TextField label="Verification code" disabled={pending} name="code" required variant="outlined" />
           <TextField
             label="New Password"
             required
@@ -43,7 +54,7 @@ export default function ChangePasswordPage() {
           />
           {state?.message && <p className="text-red-500">{state.message}</p>}
  
-          <SuccessSnackBar message="Email sent" open={open} setOpen={setOpen} />
+          <AppSnackBar message={snackbarMessage} open={snackbar} setOpen={setSnackbar} type={snackbarType} />
           
         </div>
         {state?.success ? <Button LinkComponent={Link} href="/" variant="contained" color="success">Login</Button> :
@@ -53,4 +64,13 @@ export default function ChangePasswordPage() {
         
       </form>    
     )
+}
+
+
+export default function Wrapper() {
+  return (
+    <Suspense fallback={<CircularProgress color="primary"/>}>
+      <ChangePasswordPage />
+    </Suspense>
+  )
 }

@@ -1,4 +1,4 @@
-import HeaderComponent from "../ui/Header/HeaderComponent";
+import HeaderComponent from "../../ui/Header/HeaderComponent";
 
 export default function UserLayout({ children } : { children: React.ReactNode }) {
     return (
