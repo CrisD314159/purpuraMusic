@@ -1,12 +1,12 @@
 'use client'
-import { Button, TextField } from "@mui/material";
-import { startTransition, useActionState, useEffect, useState } from "react";
+import { Button, CircularProgress, TextField } from "@mui/material";
+import { startTransition, Suspense, useActionState, useEffect, useState } from "react";
 import { ChangePassword } from "../../lib/auth/Auth";
 import Link from "next/link";
 import AppSnackBar from "../../ui/Snackbars/AppSnackBar";
 import { useSearchParams } from "next/navigation";
 
-export default function ChangePasswordPage() {
+function ChangePasswordPage() {
   const searchParams = useSearchParams()
   const token = searchParams.get('token')
   const [state, action, pending] = useActionState(ChangePassword, undefined)
@@ -64,4 +64,13 @@ export default function ChangePasswordPage() {
         
       </form>    
     )
+}
+
+
+export default function Wrapper() {
+  return (
+    <Suspense fallback={<CircularProgress color="primary"/>}>
+      <ChangePasswordPage />
+    </Suspense>
+  )
 }
