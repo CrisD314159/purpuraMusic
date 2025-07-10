@@ -32,7 +32,7 @@ export type EditAccountFormState =
     }
   | undefined
 
-export const apiURL = process.env.API_URL
+export const apiURL = process.env.NEXT_PUBLIC_API_URL
 
 
 export interface ApiLoginResponse {
