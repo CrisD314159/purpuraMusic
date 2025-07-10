@@ -4,6 +4,8 @@ import {Login} from "@/lib/auth/Auth";
 import Image from "next/image";
 import { startTransition, useActionState } from "react";
 import Link from "next/link";
+import GoogleIcon from "@/public/GoogleIcon";
+import { apiURL } from "@/lib/definitions/definitions";
 
 export default function LoginForm(){
   const [state, action, pending] = useActionState(Login, undefined)
@@ -27,6 +29,15 @@ export default function LoginForm(){
         <Image src="/purpura-entire-logo.png" alt="logo" width={250} height={250} />
         
       </div>
+
+      <Button
+       LinkComponent={Link} 
+       href={`${apiURL}/account/api/login/google`}
+       variant="outlined"
+       style={{display:'flex', justifyContent:'center', alignItems:'center', gap:'7px', marginBottom:'20px'}}>
+        <GoogleIcon/>
+        <p>Sign in with Google</p>
+      </Button>
 
       <div className="flex flex-col items-center justify-center space-y-2">
         <TextField required label="Email" type="email" color="secondary" name="email" variant="outlined" error={!!state?.errors?.email} helperText={state?.errors?.email && <p>{state.errors.email}</p>}/>

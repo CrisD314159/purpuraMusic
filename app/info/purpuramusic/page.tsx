@@ -71,6 +71,9 @@ export default function InfoPage() {
         <Button color="info" sx={{marginTop: 4}} LinkComponent={Link} href="/dashboard">
           Go to back to home page
         </Button>
+        <Button color="warning" sx={{marginTop: 4}} LinkComponent={Link} href="https://crisdev-pi.vercel.app/privacy-policy">
+          Privacy Policy
+        </Button>
       </div>
 
       {/* Estilos y animaciones */}
